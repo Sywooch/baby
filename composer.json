@@ -1,0 +1,88 @@
+{
+  "name": "vintageua/z-im",
+  "description": "Yii 2 based E-commerce engine",
+  "keywords": [
+    "yii2",
+    "framework",
+    "e-commerce",
+    "cms"
+  ],
+  "type": "project",
+  "license": "BSD-3-Clause",
+  "minimum-stability": "stable",
+  "repositories": [
+    {
+      "type": "vcs",
+      "url": "https://github.com/notgosu/yii2-i18n-module"
+    },
+    {
+      "type": "package",
+      "package": {
+        "name": "ilikenwf/nestedSortable",
+        "version": "2.0alpha",
+        "source": {
+          "url": "https://github.com/ilikenwf/nestedSortable",
+          "type": "git",
+          "reference": "2.0alpha"
+        }
+      }
+    }
+  ],
+  "require": {
+    "php": ">=5.4.0",
+    "yiisoft/yii2": "*",
+    "yiisoft/yii2-bootstrap": "*",
+    "yiisoft/yii2-swiftmailer": "*",
+    "dmstr/yii2-migrate-command": "*",
+    "kartik-v/yii2-builder": "*",
+    "kartik-v/yii2-widget-datepicker": "*",
+    "Sammaye/NestedSetBehavior": "dev-master",
+    "kartik-v/yii2-widget-select2": "v1.0.0",
+    "vova07/yii2-console-runner-extension": "*",
+    "faisalman/simple-excel-php": "dev-develop",
+    "metalguardian/yii2-file-processor-module": "dev-master",
+    "bower-asset/jquery" : "2.1.3",
+    "bower-asset/jquery-ui": "@stable",
+    "bower-asset/angular": "@stable",
+    "bower-asset/cropper": "v0.7.9",
+    "bower-asset/pusher": "v2.2.4",
+    "kartik-v/bootstrap-fileinput": "v4.1.7",
+    "kartik-v/yii2-widget-fileinput": "v1.0.0",
+    "vova07/yii2-imperavi-widget": "*",
+    "omgdef/yii2-multilingual-behavior": "*",
+    "notgosu/yii2-i18n-module": "dev-master",
+    "notgosu/yii2-meta-tag-module": "0.1.0",
+    "himiklab/yii2-sortable-grid-view-widget": "*",
+    "ilikenwf/nestedSortable": "2.0alpha",
+    "kartik-v/yii2-nav-x": "*",
+    "omnilight/yii2-shopping-cart": "1.1.0",
+    "mobiledetect/mobiledetectlib": "dev-master",
+    "rmrevin/yii2-postman": "~2.0",
+    "ladamalina/yii2-rollbar": "dev-master",
+    "udokmeci/yii2-phone-validator" : "dev-master",
+    "avator/yii2-turbosms": "*",
+    "pusher/pusher-php-server": "v2.2.1",
+    "phpoffice/phpexcel": "1.8.1",
+    "skeeks/yii2-widget-simpleajaxuploader": "1.0.0",
+    "himiklab/yii2-sitemap-module": "*",
+    "ijackua/yii2-sharelinks-widget": "1.0.0",
+    "retailcrm/api-client-php": "~3.0.0",
+    "yiisoft/yii2-authclient": "~2.0.0"
+  },
+  "require-dev": {
+    "yiisoft/yii2-codeception": "*",
+    "yiisoft/yii2-debug": "*",
+    "yiisoft/yii2-gii": "*",
+    "yiisoft/yii2-faker": "*"
+  },
+  "config": {
+    "process-timeout": 1800
+  },
+  "extra": {
+    "asset-optimize-with-installed-packages": false,
+    "asset-installer-paths": {
+      "npm-asset-library": "vendor/npm",
+      "bower-asset-library": "vendor/bower"
+    }
+  }
+}

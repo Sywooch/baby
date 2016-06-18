@@ -1,0 +1,257 @@
+html,
+body {
+    height: 100%;
+}
+
+.wrap {
+    min-height: 100%;
+    height: auto;
+    margin: 0 auto -60px;
+    padding: 0 0 60px;
+}
+
+.wrap > .container {
+    padding: 70px 15px 20px;
+}
+
+.footer {
+    height: 60px;
+    background-color: #f5f5f5;
+    border-top: 1px solid #ddd;
+    padding-top: 20px;
+}
+
+.jumbotron {
+    text-align: center;
+    background-color: transparent;
+}
+
+.jumbotron .btn {
+    font-size: 21px;
+    padding: 14px 24px;
+}
+
+.not-set {
+    color: #c55;
+    font-style: italic;
+}
+
+/* add sorting icons to gridview sort links */
+a.asc:after, a.desc:after {
+    position: relative;
+    top: 1px;
+    display: inline-block;
+    font-family: 'Glyphicons Halflings';
+    font-style: normal;
+    font-weight: normal;
+    line-height: 1;
+    padding-left: 5px;
+}
+
+a.asc:after {
+    content: /*"\e113"*/ "\e151";
+}
+
+a.desc:after {
+    content: /*"\e114"*/ "\e152";
+}
+
+.sort-numerical a.asc:after {
+    content: "\e153";
+}
+
+.sort-numerical a.desc:after {
+    content: "\e154";
+}
+
+.sort-ordinal a.asc:after {
+    content: "\e155";
+}
+
+.sort-ordinal a.desc:after {
+    content: "\e156";
+}
+
+.grid-view th {
+    white-space: nowrap;
+}
+
+.hint-block {
+    display: block;
+    margin-top: 5px;
+    color: #999;
+}
+
+.error-summary {
+    color: #a94442;
+    background: #fdf7f7;
+    border-left: 3px solid #eed3d7;
+    padding: 10px 20px;
+    margin: 0 0 15px 0;
+}
+
+.bottom-margin{
+	margin-bottom: 20px;
+}
+
+.cloneable{
+	margin-bottom: 10px;
+}
+
+.cloneable-fixed-height {
+	height: 75px;
+}
+
+.tab-pane.active{
+	padding: 20px 20px 20px 0;
+}
+
+.inline-inputs{
+	width: 900px!important;
+}
+
+.col-sm-6 .file-preview {
+	width: 1000px;
+}
+
+.kv-file-upload.btn, .close.fileinput-remove {
+	display: none!important;
+}
+
+.redactor-toolbar {
+	z-index: 1029!important;
+}
+
+.list-group-item{
+	margin-top: 10px!important;
+}
+
+.ui-sortable .badge{
+	cursor: pointer;
+}
+
+.ui-sortable-placeholder {
+	background: #cffdff !important;
+}
+
+.left-margin {
+	margin-left: 10px;
+}
+
+.sortable li div {
+	margin-bottom: 10px;
+}
+
+.file-upload-indicator{
+	padding-top: 0!important;
+}
+
+.img-container {
+	padding: 0;
+	max-width: 600px;
+	max-height: 500px;
+}
+
+.img-preview {
+	padding: 0;
+	margin-top: 50px;
+	margin-left: 50px;
+	width: 215px;
+	height: 245px;
+	overflow: hidden;
+}
+
+.centered {
+	text-align:center;
+}
+
+.margined {
+	margin: 20px;
+}
+
+.required .control-label:first-child:after {
+	content: " *";
+	color: red;
+}
+
+.config-img {
+	max-width: 300px;
+}
+
+.width-50{
+    width: 50%;
+    display: inline-block;
+    margin-right: 20px;
+}
+
+.btn-template-builder{
+    margin-top: -3px;
+}
+
+.content-append {
+    margin: 30px;
+    border: 1px solid rgb(221, 221, 221);
+}
+
+
+.form-group.content-append  div.redactor-box {
+    clear: both;
+}
+
+.form-group.content-append  div.redactor-box:not(:last-child) {
+    bottom: 33px;
+}
+
+.btn-template-mover {
+    position: relative;
+    float: left;
+    right: 40px;
+}
+
+.btn-template-delete {
+    position: relative;
+    float: right;
+    left: 40px;
+}
+
+.file-input .file-preview {
+    background-color: white;
+}
+
+.ui-state-highlight { margin-top: 20px; height: 50px; width: 100%; background-color: #21d2d2 }
+
+.content-builder-image {
+    position: relative;
+    right: 40px;
+}
+
+.red-link {
+    color: red;
+}
+
+.view-all-button {
+    padding-left: 20px;
+}
+
+.cert-span {
+    display: block;
+    width: 85px;
+    height: 85px;
+    -moz-border-radius: 100%;
+    -webkit-border-radius: 100%;
+    border-radius: 100%;
+    background-color: #f3d549;
+    text-align: center;
+    font-family: 'futurademicregular';
+    color: #4c1b4d;
+    font-size: 14px;
+    line-height: 85px;
+    text-transform: uppercase;
+    letter-spacing: 2.8px;
+}
+
+.cert-span.cert-span-purple {
+    background-color: #4c1b4d;
+    color: #ffffff;
+}
+
