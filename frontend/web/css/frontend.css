@@ -4,3 +4,47 @@
 .product-info .wrap_price {
 	margin-top: 12px;
 }
+
+.pagination-wrap {
+	width: 100%;
+	text-align: center;
+}
+ul.pagination {
+	display: inline-block;
+	padding: 0;
+	margin: 0;
+}
+
+ul.pagination li {
+	display: inline;
+}
+
+ul.pagination li.disabled {
+	display: none;
+}
+
+ul.pagination li a {
+	color: black;
+	float: left;
+	padding: 8px 16px;
+	text-decoration: none;
+	border-radius: 10px;
+}
+
+ul.pagination li.active a {
+	background-color: #D7E167;
+	color: #665F00;
+	border-radius: 10px;
+}
+
+ul.pagination li:hover:not(.active) a {
+	background-color: #ddd;
+}
+
+.sf_wrapp {
+	text-align: center;
+	margin-top: 20px;
+}
+.sf_wrapp h1 {
+	text-align: center;
+}

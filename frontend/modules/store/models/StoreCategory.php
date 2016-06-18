@@ -130,11 +130,25 @@ class StoreCategory extends FrontModel
     }
 
     /**
+     * @param array $params
+     *
      * @return string
      */
-    public function getCatalogUrl()
+    public function getCatalogUrl($params = [])
     {
-        return Url::to(static::getCatalogRoute(['alias' => $this->alias]));
+        $params['alias'] = $this->alias;
+        
+        return Url::to(static::getCatalogRoute($params));
+    }
+
+    /**
+     * @param array $params
+     *
+     * @return string
+     */
+    public static function getSearchUrl($params = [])
+    {
+        return Url::to(['/store/catalog/search', $params]);
     }
 
     /**

@@ -3,6 +3,7 @@
  * @var $products StoreProduct[]
  */
 use app\modules\store\models\StoreProduct;
+use metalguardian\fileProcessor\helpers\FPM;
 
 ?>
 <div class="box">
@@ -15,21 +16,17 @@ use app\modules\store\models\StoreProduct;
                     <a class="image" href="<?= $url ?>" title="View more">
                         <?php $imageId = $product->mainImage->file_id;
                             if ($imageId) {
-                                echo  \metalguardian\fileProcessor\helpers\FPM::image($imageId, 'product', 'mainPagePreview');
+                                echo  FPM::image($imageId, 'product', 'mainPagePreview');
                             }
                         ?>
+                        <?php if ($product->is_sale) { ?>
+                            <span class="new"><?= \Yii::t('front', 'Sale') ?></span>
+                        <?php } ?>
                     </a>
                     <h3 class="name">
                         <a href="<?= $url ?>" title=""><?= $product->label ?></a>
                     </h3>
-                    <p class="wrap_price">
-                        <?php if ($product->old_price) { ?>
-                            <span class="price-old"><?= $product->getOldPrice() ?></span>
-                            <span class="price-new"><?= $product->getPrice() ?></span>
-                        <?php } else { ?>
-                            <span class="price"><?= $product->getPrice() ?></span>
-                        <?php } ?>
-                    </p>
+                    <?= $this->render('//layouts/_wrap_price', ['product' => $product]) ?>
                     <p class="submit">
                         <input type="button" value="<?= Yii::t('front', 'Add to Cart') ?>" class="button">
                     </p>

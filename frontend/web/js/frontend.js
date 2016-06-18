@@ -1,3 +1,17 @@
+function search(entity) {
+	var url = entity.data('url');
+	var search = $('input[name=\'search\']').attr('value');
+	if (search) {
+		if (url.indexOf('?') > -1) {
+			url += '&search=' + encodeURIComponent(search);
+		} else {
+			url += '?search=' + encodeURIComponent(search);
+		}
+	} else {
+		return false;
+	}
+	window.location = url;
+}
 $(function () {
 	$('#carousel-p ul').jcarousel({
 		vertical: false,
@@ -8,6 +22,18 @@ $(function () {
 		overlayClose: true,
 		opacity: 0.4,
 		rel: "colorbox"
+	});
+	$(document).on("click", ".limit-items-selectBox-dropdown-menu li, .sort-items-selectBox-dropdown-menu li", function(e){
+		window.location = $(this).find('a').attr('rel');
+	});
+	$('.button-search').bind('click', function() {
+		search($(this));
+	});
+
+	$('#header input[name=\'search\']').bind('keydown', function(e) {
+		if (e.keyCode == 13) {
+			search($('.button-search'));
+		}
 	});
 	$(document).ready(function () {
 		toggleCartDeliveryOptions();

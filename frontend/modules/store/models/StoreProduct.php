@@ -36,6 +36,7 @@ use yii\db\Query;
  * @property string $created
  * @property string $modified
  * @property integer $status
+ * @property integer $is_sale
  *
  * @property StoreCategory $category
  * @property StoreProductType $type

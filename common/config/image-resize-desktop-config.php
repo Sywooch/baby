@@ -22,9 +22,9 @@ return [
             'height' => 84,
         ],
         'mainPreview' => [
-            'action' => 'thumbnail',
-            'width' => 420,
-            'height' => 365,
+            'action' => 'adaptiveThumbnail',
+            'width' => 300,
+            'height' => 300,
         ],
         'big' => [
             'action' => 'adaptiveThumbnail',

@@ -85,6 +85,7 @@ return [
             'rules' => [
                 ['pattern' => 'sitemap', 'route' => 'sitemap/default/index', 'suffix' => '.xml'],
                 ['pattern' => '', 'route' => 'site/index'],
+                ['pattern' => 'search', 'route' => 'store/catalog/search'],
                 ['pattern' => 'showroom', 'route' => 'site/showroom'],
 
                 ['pattern' => 'profile', 'route' => 'user/user/profile'],

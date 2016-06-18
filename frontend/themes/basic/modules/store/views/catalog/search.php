@@ -1,18 +1,18 @@
 <?php
 /**
- * @var $category \app\modules\store\models\StoreCategory
  * @var $dataProvider \yii\data\ActiveDataProvider
  */
 
-$this->registerLinkTag(['rel' => 'canonical', 'href' => \yii\helpers\Url::canonical()]);
+use yii\helpers\Url;
+
+$this->registerLinkTag(['rel' => 'canonical', 'href' => Url::canonical()]);
 ?>
     <div class="breadcrumb">
-        <?= $category->getBreadCrumbs() ?>
+        <div class="breadcrumb">
+            <a href="<?= Url::home() ?>"><?= \Yii::t('front', 'Home') ?></a> » <a href="#"><?= \Yii::t('front', 'Search') ?></a>
+        </div>
     </div>
-    <h1><span class="h1-top"><?= $category->label ?></span></h1>
-    <div class="category-info">
-        <p><?= $category->description ?></p>
-    </div>
+    <h1><span class="h1-top"><?= \Yii::t('front', 'Search by query') ?> "<?= $search ?>"</span></h1>
     <div class="product-filter">
         <div class="display">
             <label><?= \Yii::t('front', 'Display:') ?></label>

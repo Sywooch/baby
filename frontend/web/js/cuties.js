@@ -13,25 +13,7 @@ jQuery(document).ready(function($){
     	.siblings('div:visible').slideUp();
   	});
 	
-	$('.button-search').bind('click', function() {
-		url = $('base').attr('href') + 'index.html'; 
-		var search = $('input[name=\'search\']').attr('value');
-		if (search) {
-			url += '&search=' + encodeURIComponent(search);
-		}
-		location = url;
-	});
 	
-	$('#header input[name=\'search\']').bind('keydown', function(e) {
-		if (e.keyCode == 13) {
-			url = $('base').attr('href') + 'index.html';
-			var search = $('input[name=\'search\']').attr('value');
-			if (search) {
-				url += '&search=' + encodeURIComponent(search);
-			}
-			location = url;
-		}
-	});
 	
 	$('#menu ul > li > a + div').each(function(index, element) {
 		if ($.browser.msie && ($.browser.version == 7 || $.browser.version == 6)) {

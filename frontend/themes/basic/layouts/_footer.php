@@ -13,23 +13,21 @@ $googlePlusLink = $googlePlusLink ? $googlePlusLink : '#';
             <div id="footer_top_content">
                 <div id="footer_top_item">
                     <div class="footer_top_item" id="about_us">
-                        <h3 class="title_item_1 down"><a href="about.html">About us</a></h3>
-                        <p class="text_item content_item_1 about"> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean interdum tellus ac velit faucibus feugiat. Donec dignissim, eros elementum porttitor tempor, massa ligula cursus libero, vel ullamcorper dui ipsum id magna. Pellentesque adipiscing euismod mauris id pharetra. </p>
-                        <p class="text_item content_item_1 about">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean interdum tellus ac velit faucibus feugiat. Donec dignissim, eros elementum porttitor tempor, massa ligula cursus libero, vel ullamcorper dui ipsum id magna.</p>
+                        <h3 class="title_item_1 down"><a href="about.html"><?= \Yii::t('front', 'About us') ?></a></h3>
+                        <p class="text_item content_item_1 about"><?= Yii::t('front', 'footer_text_about_us') ?></p>
                     </div>
                     <div class="footer_top_item" id="contact_us">
-                        <h3 class="title_item_2 down"><a href="contact.html">Contact us</a></h3>
+                        <h3 class="title_item_2 down"><a href="contact.html"><?= \Yii::t('front', 'Contact us') ?></a></h3>
                         <div class="text_item">
-                            <p class="info_contact"> <span>Things for Cuties<br>
-                John Doodely Doe
-                <br>
-                only the best childish products
-                <br>
-                John Doe Street 123<br>
-                1112345 Berlin<br>
-                Germany
-              </span> </p>
-                            <p class="online_contact"> <span class="phone">012 - 34 456 778</span> <span class="phone">012 - 345 67 89</span> <span class="fax">012 - 345 67 890</span> <span class="mail"><a class="color" href="mailto:contact@thingsforcuties.doe" title="Mail">contact@thingsforcuties.doe</a></span> </p>
+                            <p class="info_contact"> <span><?= Yii::t('front', 'footer_text_contact_us') ?></span> </p>
+                            <p class="online_contact">
+                                <span class="phone">012 - 34 456 778</span>
+                                <span class="phone">012 - 345 67 89</span>
+                                <span class="fax">012 - 345 67 890</span>
+                                <span class="mail">
+                                    <a class="color" href="mailto:contact@thingsforcuties.doe" title="Mail">contact@thingsforcuties.doe</a>
+                                </span>
+                            </p>
                         </div>
                     </div>
                     <div class="footer_top_item " id="twitter_news">
@@ -63,7 +61,7 @@ $googlePlusLink = $googlePlusLink ? $googlePlusLink : '#';
     <div class="footer_wrapper">
         <div id="footer_bottom">
             <div class="footer_bottom_item">
-                <h3 class="bottom_item_1 down"><a>Information</a></h3>
+                <h3 class="bottom_item_1 down"><a><?= \Yii::t('front', 'Information') ?></a></h3>
                 <ul class="menu_footer_item text_item">
                     <li><a href="about.html" title="About Us">About Us</a></li>
                     <li><a href="blog.html" title="Delivery Information">Blog</a></li>
@@ -71,7 +69,8 @@ $googlePlusLink = $googlePlusLink ? $googlePlusLink : '#';
                     <li><a href="#" title="Terms &amp; Conditions">Terms &amp; Conditions</a></li>
                 </ul>
             </div>
-            <div class="footer_bottom_item">
+            <?= \frontend\widgets\footerMenu\Widget::widget() ?>
+            <?php /*<div class="footer_bottom_item">
                 <h3 class="bottom_item_2 down"><a>Customer Service</a></h3>
                 <ul class="menu_footer_item text_item">
                     <li><a href="contact.html">Contact Us</a></li>
@@ -96,12 +95,12 @@ $googlePlusLink = $googlePlusLink ? $googlePlusLink : '#';
                     <li><a href="wishlist.html">Wish List</a></li>
                     <li><a href="#">Newsletter</a></li>
                 </ul>
-            </div>
+            </div>*/ ?>
             <div class="clear"></div>
         </div>
         <div id="mobile-footer">
             <div class="mobile-footer-menu">
-                <h3>Information</h3>
+                <h3><?= \Yii::t('front', 'Information') ?></h3>
                 <div class="mobile-footer-nav" style="display: none;">
                     <ul>
                         <li><a href="about.html" title="About Us">About Us</a></li>
@@ -110,7 +109,9 @@ $googlePlusLink = $googlePlusLink ? $googlePlusLink : '#';
                         <li><a href="#" title="Terms &amp; Conditions">Terms &amp; Conditions</a></li>
                     </ul>
                 </div>
-                <h3>Customer Service</h3>
+                <?= \frontend\widgets\footerMenu\Widget::widget(['mobile' => true]) ?>
+
+                <?php /*<h3>Customer Service</h3>
                 <div class="mobile-footer-nav" style="display: none;">
                     <ul>
                         <li><a href="contact.html">Contact Us</a></li>
@@ -135,12 +136,12 @@ $googlePlusLink = $googlePlusLink ? $googlePlusLink : '#';
                         <li><a href="wishlist.html">Wish List</a></li>
                         <li><a href="#">Newsletter</a></li>
                     </ul>
-                </div>
+                </div>*/ ?>
             </div>
         </div>
     </div>
     <div id="footer-text">
-        <p>Things for Cuties © 2013 - Template by <a href="http://themeforest.net/user/ssievert?ref=ssievert">ssievert</a></p>
+        <p>Things for Cuties © 2016</p>
     </div>
 </div>
 

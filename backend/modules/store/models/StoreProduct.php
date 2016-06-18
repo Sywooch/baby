@@ -1190,7 +1190,7 @@ class StoreProduct extends \backend\components\BackModel
                     $items[''] = 'выберите';
                 }
             } else {
-                $items[$category->id] = str_repeat('-', $category->level) . ' ' . $category->label;
+                $items[$category->id] = str_repeat('--', $category->level) . ' ' . $category->label;
             }
         }
 

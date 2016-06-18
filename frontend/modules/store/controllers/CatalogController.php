@@ -33,7 +33,8 @@ class CatalogController extends FrontController
                 'class' => UnusedParamsFilter::className(),
                 'actions' => [
                     //action => ['param', 'param2']
-                    'index' => ['alias', 'filter', 'page', 'sort', '_pjax'],
+                    'index' => ['alias', 'page', 'sort', 'show', 'search'],
+                    'search' => ['alias', 'page', 'sort', 'show', 'search'],
                 ]
             ],
         ];
@@ -51,19 +52,67 @@ class CatalogController extends FrontController
         if (!$alias) {
             throw new NotFoundHttpException;
         }
+
+        return $this->commonAction($alias);
+    }
+
+    /**
+     * @param $search string
+     *
+     * @return string
+     * @throws HttpException
+     */
+    public function actionSearch($search)
+    {
+        $dataProvider = $this->commonAction(null, $search);
+
+        return $this->render('search', [
+            'search' => $search,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
+    /**
+     * @param null|string $alias
+     * @param null|string $search
+     *
+     * @return ActiveDataProvider|string
+     * @throws HttpException
+     * @throws \yii\base\ExitException
+     */
+    public function commonAction($alias, $search = null)
+    {
         $this->handlePagination();
         $filter = \Yii::$app->request->get('filter');
+        $pageSize = (int) \Yii::$app->request->get('show');
+        $sort = \Yii::$app->request->get('sort');
 
         $query = StoreProduct::find()
             ->groupBy(StoreProduct::tableName().'.id')
             ->joinWith(['category', 'mainImage'])
             ->where(StoreProduct::tableName().'.visible = 1');
 
+        if ($search) {
+            $query->andWhere(['like', StoreProduct::tableName().'.label', $search]);
+        }
 
         if ($alias) {
+            /** @var StoreCategory $category */
             $category = StoreCategory::find()
                 ->where(['alias' => $alias, 'visible' => 1])
                 ->one();
+            if (!$pageSize || $pageSize > 100) {
+                $pageSize = 15;
+            } elseif ($pageSize == 15) {
+                unset($_GET['show']);
+                $this->redirect($category->getCatalogUrl($_GET));
+                \Yii::$app->end();
+            }
+            if ($sort === 'default') {
+                unset($_GET['sort']);
+                $this->redirect($category->getCatalogUrl($_GET));
+                \Yii::$app->end();
+            }
             $categoryIdList = StoreCategory::getCategoryWithChildIdList($alias);
             if ($categoryIdList) {
                 $query->andWhere(['category_id' => $categoryIdList]);
@@ -85,17 +134,21 @@ class CatalogController extends FrontController
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
             'pagination' => [
-                'pageSize' => 100,
+                'pageSize' => $pageSize,
                 'pageSizeParam' => false,
                 'forcePageParam' => false
             ],
             'sort'=> ['defaultOrder' => ['position'=> SORT_DESC]]
         ]);
 
+        if ($search) {
+            return $dataProvider;
+        }
+
         return $this->render('index', [
-                'category' => $category,
-                'dataProvider' => $dataProvider,
-            ]);
+            'category' => $category,
+            'dataProvider' => $dataProvider,
+        ]);
     }
 
     /**

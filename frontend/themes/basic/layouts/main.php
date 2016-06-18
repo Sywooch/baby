@@ -1,5 +1,6 @@
 <?php
 use app\modules\common\forms\NewsSubscribeForm;
+use app\modules\store\models\StoreCategory;
 use frontend\assets\GMapAsset;
 use frontend\assets\HeadAsset;
 use yii\helpers\Html;
@@ -26,7 +27,7 @@ GMapAsset::register($this);*/
                     <div id="language">
                     </div>
                 <div id="search">
-                    <div class="button-search"></div>
+                    <div class="button-search" data-url="<?= StoreCategory::getSearchUrl() ?>"></div>
                     <input type="text" name="search" placeholder="Search" value="">
                 </div>
                 <div id="cart">
