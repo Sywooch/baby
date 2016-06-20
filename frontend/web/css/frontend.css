@@ -48,3 +48,49 @@ ul.pagination li:hover:not(.active) a {
 .sf_wrapp h1 {
 	text-align: center;
 }
+
+.help-block {
+	color: red;
+}
+.contact-form-message {
+	color: #CDA24D;
+	font-size: 15px;
+}
+
+.cart-total {
+	border-top: none;
+}
+.cart-h2 {
+	border-bottom: none;
+}
+.popup.box-content {
+	border: 1px solid #fada99;
+	border-radius: 10px;
+	background: #fff;
+	margin-bottom: 50px;
+	margin-top: 10px;
+	font-size: 14px;
+	font-family: 'Source Sans Pro', Arial;
+	text-align: center;
+	padding: 20px 20px 12px;
+	width: 100%;
+}
+.checkout-content .right {
+	background: none;
+}
+
+.field-orderform-deliverytype {
+	margin-top: 95px;
+}
+.comment-p {
+	max-width: 450px;
+	top: 20px;
+	position: relative;
+}
+#orderform-comment {
+	width: 97%;
+	min-height: 100px;
+}
+#order-form .help-block {
+	position: absolute;
+}

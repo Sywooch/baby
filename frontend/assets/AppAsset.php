@@ -20,6 +20,8 @@ class AppAsset extends AssetBundle
     public $css = [
         'http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700',
         'http://fonts.googleapis.com/css?family=Gochi+Hand',
+        'css/jquery.fancybox.css',
+        'css/jquery.fancybox-thumbs.css',
         'css/stylesheet.css',
         'css/mobile.css',
         'css/cloud-zoom.css',
@@ -27,16 +29,18 @@ class AppAsset extends AssetBundle
         'css/frontend.css',
     ];
     public $js = [
-        'js/jquery-1.7.1.min.js',
         'js/jquery.jcarousel.min.js',
         'js/jquery.cycle.all.js',
         'js/jquery.selectBox.js',
         'js/cloud-zoom.1.0.2.js',
         'js/jquery.colorbox-min.js',
+        'js/jquery.fancybox.pack.js',
         'js/cuties.js',
+        'js/head.js',
         'js/frontend.js',
     ];
     public $depends = [
+        'yii\web\YiiAsset',
         'frontend\assets\LtIE9Asset',
     ];
 }

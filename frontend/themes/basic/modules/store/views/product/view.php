@@ -65,9 +65,12 @@ use yii\helpers\Url;
             <span><?= \Yii::t('front', 'Availability:') ?></span> <?= \common\models\StoreProduct::getStatus($model->status) ?></div>
         <div class="cart">
             <div><?= \Yii::t('front', 'Qty:') ?>
-                <input type="text" name="quantity" size="2" value="1">
+                <input class="cart-quantity" type="text" name="quantity" size="2" value="1">
                 &nbsp;
-                <input type="button" value="Add to Cart" id="button-cart" class="button">
+                <?php $url = StoreProductCartPosition::getCartAddUrl(['id' => $model->id]) ?>
+                <a class="cart-add ajax-popup-link" href="<?= $url ?>" data-url="<?= $url ?>">
+                    <input type="button" value="<?= \Yii::t('front', 'Add to Cart') ?>" id="button-cart" class="button">
+                </a>
             </div>
         </div>
     </div>

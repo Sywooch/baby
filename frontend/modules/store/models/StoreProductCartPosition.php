@@ -217,9 +217,29 @@ class StoreProductCartPosition extends FrontModel implements CartPositionInterfa
      *
      * @return string
      */
+    public static function getCartUpdateUrl($params = [])
+    {
+        return self::createUrl('/store/cart/update', $params);
+    }
+
+    /**
+     * @param array $params
+     *
+     * @return string
+     */
     public static function getShowCartUrl($params = [])
     {
         return self::createUrl('/store/cart/show-cart', $params);
+    }
+
+    /**
+     * @param array $params
+     *
+     * @return string
+     */
+    public static function getCheckoutUrl($params = [])
+    {
+        return self::createUrl('/store/cart/checkout', $params);
     }
 
     /**

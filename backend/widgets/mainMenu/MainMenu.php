@@ -43,23 +43,6 @@ class MainMenu extends Widget
                         'label' => 'Товары',
                         'url' => ['/store/store-product/index']
                     ],
-                    /*[
-                        'label' => 'Сортировка товаров',
-                        'items' => [
-                            [
-                                'label' => 'Топ',
-                                'url' => ['/store/store-product-top/index']
-                            ],
-                            [
-                                'label' => 'ТОП категории',
-                                'url' => ['/store/store-product-category-sorting/index']
-                            ],
-                            [
-                                'label' => 'Новинки',
-                                'url' => ['/store/store-product-new/index']
-                            ]
-                        ]
-                    ],*/
                     [
                         'label' => 'Категории',
                         'url' => ['/store/store-category/index'],
@@ -111,34 +94,13 @@ class MainMenu extends Widget
                 'label' => 'Сайт',
                 'items' => [
                     [
-                        'label' => 'Главная',
-                        'items' => [
-                            [
-                                'label' => 'Ссылки в футере',
-                                'url' => ['/common/footer-links/index']
-                            ],
-                            [
-                                'label' => 'Баннеры',
-                                'url' => ['/banner/main-page-banner/index']
-                            ],
-                            /*[
-                                'label' => 'Must have',
-                                'url' => ['/store/store-product-must-have/index']
-                            ],*/
-                        ]
+                        'label' => 'Слайдер',
+                        'url' => ['/banner/main-page-banner/index']
                     ],
                     [
-                        'label' => 'Оплата и доставка',
-                        'url' => ['/common/pay-and-delivery/index']
+                        'label' => 'Статические страницы',
+                        'url' => ['/staticPage/default/index']
                     ],
-                    /*[
-                        'label' => 'Видео в корзине',
-                        'url' => ['/common/cart-video/index']
-                    ],
-                    [
-                        'label' => 'Сео перелинковка в футере',
-                        'url' => ['/common/seo-footer-links/index']
-                    ],*/
                 ]
             ];
 
@@ -167,52 +129,6 @@ class MainMenu extends Widget
             $menuItems[] = [
                 'label' => 'Модули',
                 'items' => [
-                    /*[
-                        'label' => 'Баннеры',
-                        'items' => [
-                            [
-                                'label' => 'Для страницы новинок',
-                                'url' => ['/banner/new-product-banner/index']
-                            ],
-                            [
-                                'label' => 'Для ТОП-50',
-                                'url' => ['/banner/top-50-product-banner/index']
-                            ],
-                            [
-                                'label' => 'Для блога',
-                                'url' => ['/banner/blog-banner/index']
-                            ],
-                            [
-                                'label' => 'Для главной страницы каталога',
-                                'url' => ['/banner/catalog-banner/index']
-                            ],
-                        ]
-                    ],
-                    [
-                        'label' => 'Блоги',
-                        'items' => [
-                            [
-                                'label' => 'Рубрики блогов',
-                                'url' => ['/blog/blog-rubric/index']
-                            ],
-                            [
-                                'label' => 'Записи блогов',
-                                'url' => ['/blog/blog-article/index']
-                            ],
-                            [
-                                'label' => 'Комменты',
-                                'url' => ['/blog/comment/index']
-                            ],
-                        ]
-                    ],
-                    [
-                        'label' => 'Акции',
-                        'url' => ['/sales/sales/index']
-                    ],
-                    [
-                        'label' => 'Сертификаты',
-                        'url' => ['/common/certificate/index']
-                    ],*/
                     [
                         'label' => 'SEO',
                         'items' => [

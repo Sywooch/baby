@@ -65,7 +65,13 @@ return [
     'components' => [
         'assetManager' => [
             'appendTimestamp' => true,
-//            'bundles' => require(__DIR__ . '/' . 'assets-prod.php'),
+            'bundles' => [
+                'yii\web\JqueryAsset' => [
+                    'basePath' => '@webroot',
+                    'baseUrl' => '@web',
+                    'js' => ['js/jquery-1.7.1.min.js']
+                ],
+            ],
         ],
         'request' => [
             'class' => 'frontend\components\LangRequest'
@@ -102,9 +108,7 @@ return [
 
                 ['pattern' => 'favorite/add/<productId>', 'route' => '/favorite/favorite/add'],
                 ['pattern' => 'favorite/remove/<productId>', 'route' => '/favorite/favorite/remove'],
-
-                ['pattern' => 'about-club', 'route' => 'site/blog'],
-                ['pattern' => 'about', 'route' => 'site/about'],
+                
                 ['pattern' => 'delivery', 'route' => 'site/delivery'],
                 ['pattern' => 'certificate', 'route' => 'certificate/certificate/index'],
                 ['pattern' => 'gift-request', 'route' => 'common/gift-request/send'],
@@ -125,7 +129,9 @@ return [
                 ['pattern' => 'cart/get/small', 'route' => 'store/cart/get-small-cart'],
                 ['pattern' => 'cart/add/<id:\d+>', 'route' => 'store/cart/add'],
                 ['pattern' => 'cart/remove/<id:\d+>', 'route' => 'store/cart/remove'],
+                ['pattern' => 'cart/update/<id:\d+>', 'route' => 'store/cart/update'],
                 ['pattern' => 'cart', 'route' => 'store/cart/show-cart'],
+                ['pattern' => 'cart/checkout', 'route' => 'store/cart/checkout'],
                 ['pattern' => 'cart/thank-for-the-order', 'route' => 'store/cart/order-done'],
 
                 ['pattern' => 'blog/post-a-comment', 'route' => 'blog/blog/post-a-comment'],
@@ -135,6 +141,7 @@ return [
 
                 ['pattern' => 'sales', 'route' => 'sales/sales/index'],
                 ['pattern' => 'sales/view/<alias>', 'route' => 'sales/sales/view'],
+                ['pattern' => '<alias>', 'route' => 'static-page/index'],
             ]
         ],
         'view' => [

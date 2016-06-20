@@ -1,5 +1,7 @@
 <?php
 
+use common\models\StaticPage;
+
 $fbLink = Yii::$app->config->get('facebook_link');
 $fbLink = $fbLink ? $fbLink : '#';
 $instagramLink = Yii::$app->config->get('instagram_link');
@@ -13,11 +15,11 @@ $googlePlusLink = $googlePlusLink ? $googlePlusLink : '#';
             <div id="footer_top_content">
                 <div id="footer_top_item">
                     <div class="footer_top_item" id="about_us">
-                        <h3 class="title_item_1 down"><a href="about.html"><?= \Yii::t('front', 'About us') ?></a></h3>
+                        <h3 class="title_item_1 down"><a href="<?= StaticPage::getAboutUrl() ?>"><?= \Yii::t('front', 'About us') ?></a></h3>
                         <p class="text_item content_item_1 about"><?= Yii::t('front', 'footer_text_about_us') ?></p>
                     </div>
                     <div class="footer_top_item" id="contact_us">
-                        <h3 class="title_item_2 down"><a href="contact.html"><?= \Yii::t('front', 'Contact us') ?></a></h3>
+                        <h3 class="title_item_2 down"><a href="<?= StaticPage::getContactsUrl() ?>"><?= \Yii::t('front', 'Contact us') ?></a></h3>
                         <div class="text_item">
                             <p class="info_contact"> <span><?= Yii::t('front', 'footer_text_contact_us') ?></span> </p>
                             <p class="online_contact">
@@ -63,10 +65,7 @@ $googlePlusLink = $googlePlusLink ? $googlePlusLink : '#';
             <div class="footer_bottom_item">
                 <h3 class="bottom_item_1 down"><a><?= \Yii::t('front', 'Information') ?></a></h3>
                 <ul class="menu_footer_item text_item">
-                    <li><a href="about.html" title="About Us">About Us</a></li>
-                    <li><a href="blog.html" title="Delivery Information">Blog</a></li>
-                    <li><a href="comparison.html" title="Privacy Policy">Compare List</a></li>
-                    <li><a href="#" title="Terms &amp; Conditions">Terms &amp; Conditions</a></li>
+                    <?= \frontend\widgets\footerInformation\Widget::widget() ?>
                 </ul>
             </div>
             <?= \frontend\widgets\footerMenu\Widget::widget() ?>
@@ -103,10 +102,7 @@ $googlePlusLink = $googlePlusLink ? $googlePlusLink : '#';
                 <h3><?= \Yii::t('front', 'Information') ?></h3>
                 <div class="mobile-footer-nav" style="display: none;">
                     <ul>
-                        <li><a href="about.html" title="About Us">About Us</a></li>
-                        <li><a href="blog.html" title="Delivery Information">Blog</a></li>
-                        <li><a href="comparison.html" title="Privacy Policy">Compare List</a></li>
-                        <li><a href="#" title="Terms &amp; Conditions">Terms &amp; Conditions</a></li>
+                        <?= \frontend\widgets\footerInformation\Widget::widget() ?>
                     </ul>
                 </div>
                 <?= \frontend\widgets\footerMenu\Widget::widget(['mobile' => true]) ?>

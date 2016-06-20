@@ -14,6 +14,7 @@ use yii\helpers\ArrayHelper;
  * @property string $name
  * @property string $phone
  * @property string $email
+ * @property string $city
  * @property string $street
  * @property string $house
  * @property string $apartment
@@ -56,6 +57,7 @@ class StoreOrder extends FrontModel
                     'name',
                     'phone',
                     'email',
+                    'city',
                     'street',
                     'house',
                     'apartment',
@@ -66,6 +68,36 @@ class StoreOrder extends FrontModel
                 'string',
                 'max' => 255
             ]
+        ];
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function attributeLabels()
+    {
+        return [
+            'id' => 'ID',
+            'name' => 'Имя, фамилия',
+            'phone' => 'Телефон',
+            'address' => 'Адрес',
+            'email' => 'Email',
+            'street' => 'Улица',
+            'house' => 'Дом',
+            'apartment' => 'Квартира',
+            'nova_poshta_storage' => 'Склад новой почты',
+            'discount_card' => 'Скидочная карта',
+            'promo_code' => 'Промо-код',
+            'comment' => 'Комментарий',
+            'payment_type' => 'Тип оплаты',
+            'delivery_type' => 'Тип доставки',
+            'delivery_time' => 'Время доставки',
+            'status' => 'Cтатус',
+            'recalculateTotalPrice' => 'Пересчитать сумму заказа',
+            'created' => 'Создано',
+            'modified' => 'Обновлено',
+            'sum' => 'Стоимость',
+            'payment_status' => 'Оплачен'
         ];
     }
 
@@ -96,10 +128,10 @@ class StoreOrder extends FrontModel
     {
         parent::afterSave($insert, $changedAttributes);
 
-        \common\models\StoreOrder::fireNewRequestEvent();
+        //\common\models\StoreOrder::fireNewRequestEvent();
 
-        $message = Yii::t('cart', 'Thank your for the order №{n}.', ['n' => $this->id]);
+        //$message = Yii::t('cart', 'Thank your for the order №{n}.', ['n' => $this->id]);
 
-        \Yii::$app->turbosms->send($message, $this->phone);
+        //\Yii::$app->turbosms->send($message, $this->phone);
     }
 }

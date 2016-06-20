@@ -373,7 +373,7 @@ class User extends ActiveRecord implements IdentityInterface
             return null;
         }
 
-        RetailCrmHelper::createUser($user->id);
+        //RetailCrmHelper::createUser($user->id);
 
         return $user->id;
     }

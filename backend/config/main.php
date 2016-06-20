@@ -49,6 +49,9 @@ return [
         'configuration' => [
             'class' => 'backend\modules\configuration\Configuration',
         ],
+        'staticPage' => [
+            'class' => 'backend\modules\staticPage\Module',
+        ],
         'i18n' => Zelenin\yii\modules\I18n\Module::className()
     ],
     'components' => [

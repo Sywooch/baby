@@ -26,6 +26,20 @@ $(function () {
 	$(document).on("click", ".limit-items-selectBox-dropdown-menu li, .sort-items-selectBox-dropdown-menu li", function(e){
 		window.location = $(this).find('a').attr('rel');
 	});
+	$(document).on("keyup", ".cart-quantity", function(e){
+		var quantity = $(this).val();
+		if (quantity) {
+			var addLink = $('.cart-add');
+			if (addLink.length) {
+				var href = addLink.data('url') + '?quantity=' + quantity;
+				addLink.attr('href', href);
+			} else {
+				var url = $(this).data('url') + '?quantity=' + quantity;
+
+				executeAjaxRequest(url);
+			}
+		}
+	});
 	$('.button-search').bind('click', function() {
 		search($(this));
 	});

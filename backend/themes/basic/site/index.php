@@ -18,21 +18,6 @@ $this->title = 'My Yii Application';
             'label' => 'Заказы',
             'buttonsPath' => '/store/store-order'
         ]) ?>
-        <?= \backend\widgets\lastItemsGrid\Widget::widget([
-            'model' => new Callback(),
-            'label' => 'Запросы обратного звонка',
-            'buttonsPath' => '/callback/callback'
-        ]) ?>
-        <?= \backend\widgets\lastItemsGrid\Widget::widget([
-            'model' => new GiftRequest(),
-            'label' => 'Запросы на подбор подарка',
-            'buttonsPath' => '/common/gift-request'
-        ]) ?>
-        <?= \backend\widgets\lastItemsGrid\Widget::widget([
-            'model' => new NewsSubscribe(),
-            'label' => 'Запросы на подписку',
-            'buttonsPath' => '/common/news-subscribe'
-        ]) ?>
     </div>
     <?= Html::a("Refresh", ['site/index'], ['class' => 'btn btn-lg btn-primary hidden', 'id' => 'refreshButton']) ?>
     <?php Pjax::end(); ?>

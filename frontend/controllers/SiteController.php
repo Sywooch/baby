@@ -69,17 +69,6 @@ class SiteController extends FrontController
     /**
      * @return string
      */
-    public function actionAbout()
-    {
-        $this->modelToFetchSeo = PageSeo::findOne(12);
-        $this->pageForSeo = MetaTagRegistratorWithDefaults::PAGE_ABOUT_US;
-
-        return $this->render('about');
-    }
-
-    /**
-     * @return string
-     */
     public function actionSitemap()
     {
         return $this->render('sitemap');
