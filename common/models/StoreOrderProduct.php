@@ -11,6 +11,8 @@ use Yii;
  * @property integer $order_id
  * @property integer $product_id
  * @property string $sku
+ * 
+ * @property StoreProduct $product
  */
 class StoreOrderProduct extends \yii\db\ActiveRecord
 {
@@ -20,5 +22,13 @@ class StoreOrderProduct extends \yii\db\ActiveRecord
     public static function tableName()
     {
         return '{{%store_order_product}}';
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getProduct()
+    {
+        return $this->hasOne(StoreProduct::className(), ['id' => 'product_id']);
     }
 }

@@ -6,17 +6,19 @@
 namespace app\modules\store\controllers;
 
 use app\models\Payment;
-use app\modules\certificate\models\Certificate;
 use app\modules\store\forms\OrderForm;
 use app\modules\store\models\StoreProductCartPosition;
+use common\models\StoreOrder;
 use common\models\StoreProduct;
 use frontend\components\UnusedParamsFilter;
 use frontend\controllers\FrontController;
 use frontend\widgets\headerCart\Widget;
 use Imagine\Exception\InvalidArgumentException;
+use yii\base\Exception;
 use yii\filters\VerbFilter;
 use yii\helpers\Html;
 use yii\helpers\Json;
+use yii\web\HttpException;
 use yii\web\Response;
 use yii\widgets\ActiveForm;
 
@@ -32,6 +34,11 @@ class CartController extends FrontController
     public $redirectAfterOrderUrl = null;
 
     /**
+     * @var string
+     */
+    public $salt = '37a2lj4jLJlSDeo293';
+
+    /**
      * @inheritdoc
      */
     public function behaviors()
@@ -44,7 +51,8 @@ class CartController extends FrontController
                     'add' => ['sku', 'id', 'type', 'quantity'],
                     'remove' => ['sku', 'id', 'all', 'type'],
                     'update' => ['id', 'quantity'],
-                    'show-cart' => ['orderCreateRequest']
+                    'show-cart' => ['orderCreateRequest'],
+                    'order-done' => ['hash']
                 ]
             ],
             'verbs' => [
@@ -164,15 +172,23 @@ class CartController extends FrontController
     }
 
     /**
+     * @param $hash
+     *
      * @return string
+     * @throws Exception
      */
-    public function actionOrderDone()
+    public function actionOrderDone($hash)
     {
-        $this->layout = '//simple';
-
-        $order = \Yii::$app->session->hasFlash('order')
+        /*$order = \Yii::$app->session->hasFlash('order')
             ? Json::decode(\Yii::$app->session->getFlash('order'))
-            : false;
+            : false;*/
+
+        $id = base64_decode($hash);
+        $id = str_replace($this->salt, '', $id);
+        $order = StoreOrder::findOne($id);
+        if (!$order) {
+            throw new HttpException(404, \Yii::t('front', 'Can\'t find order'));
+        }
 
         return $this->render('order_done', compact('order'));
     }
@@ -220,10 +236,11 @@ class CartController extends FrontController
                 'id' => $order->id,
                 'sum' => $order->sum
             ]));
+            $hash = base64_encode($this->salt . $order->id);
 
             $redirectUrl = $form->isExternalPayment()
                 ? Payment::getPayUrl(['orderId' => $order->id])
-                : OrderForm::getOrderDoneUrl();
+                : OrderForm::getOrderDoneUrl(['hash' => $hash]);
             $this->redirectAfterOrderUrl = $redirectUrl;
 
             return \Yii::$app->request->isAjax

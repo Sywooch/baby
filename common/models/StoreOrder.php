@@ -2,6 +2,7 @@
 
 namespace common\models;
 
+use app\modules\store\models\StoreProduct;
 use common\models\StoreOrderProduct;
 use vova07\console\ConsoleRunner;
 use Yii;
@@ -27,6 +28,8 @@ use yii\db\Query;
  * @property integer $status
  * @property string $created
  * @property string $modified
+ * 
+ * @property StoreOrderProduct[] $storeOrderProducts
  */
 class StoreOrder extends \yii\db\ActiveRecord
 {
@@ -63,6 +66,7 @@ class StoreOrder extends \yii\db\ActiveRecord
     {
         return $this->hasMany(StoreOrderProduct::className(), ['order_id' => 'id']);
     }
+
 
     /**
      * @return mixed|string

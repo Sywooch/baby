@@ -3,6 +3,7 @@
  * @var $products StoreProduct[]
  */
 use app\modules\store\models\StoreProduct;
+use app\modules\store\models\StoreProductCartPosition;
 use metalguardian\fileProcessor\helpers\FPM;
 
 ?>
@@ -28,7 +29,9 @@ use metalguardian\fileProcessor\helpers\FPM;
                     </h3>
                     <?= $this->render('//layouts/_wrap_price', ['product' => $product]) ?>
                     <p class="submit">
-                        <input type="button" value="<?= Yii::t('front', 'Add to Cart') ?>" class="button">
+                        <a class="ajax-popup-link" href="<?= StoreProductCartPosition::getCartAddUrl(['id' => $product->id]) ?>">
+                            <input type="button" value="<?= Yii::t('front', 'Add to Cart') ?>" class="button">
+                        </a>
                     </p>
                 </div>
             <?php endforeach; ?>

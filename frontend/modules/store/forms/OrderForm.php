@@ -108,7 +108,7 @@ class OrderForm extends Model
         }
 
         if (!$this->deliveryType) {
-            $this->deliveryType = 3;
+            $this->deliveryType = 1;
         }
 
         $this->fillUserData();
@@ -120,10 +120,10 @@ class OrderForm extends Model
     public function attributeLabels()
     {
         return [
-            'name' => \Yii::t('frontend', 'Order_form_name'),
+            'name' => \Yii::t('frontend', 'Name'),
             'city' => \Yii::t('frontend', 'Order_form_city'),
             'email' => \Yii::t('frontend', 'Order_form_email'),
-            'phone' => \Yii::t('frontend', 'Order_form_phone'),
+            'phone' => \Yii::t('frontend', 'Phone'),
             'paymentType' => \Yii::t('frontend', 'Order_form_paymentType'),
             'deliveryType' => \Yii::t('frontend', 'Order_form_deliveryType'),
             'street' => \Yii::t('frontend', 'Order_form_street'),
@@ -165,6 +165,20 @@ class OrderForm extends Model
 
         $transaction = \Yii::$app->db->beginTransaction();
         try {
+            $array = [];
+            if ($this->city) {
+                $array[] = 'г. ' . $this->city;
+            }
+            if ($this->street) {
+                $array[] = $this->street;
+            }
+            if ($this->house) {
+                $array[] = 'д. ' . $this->house;
+            }
+            if ($this->apartment) {
+                $array[] = 'кв. ' . $this->apartment;
+            }
+            $address = implode(' ', $array);
             $order = new \app\modules\store\models\StoreOrder();
             $order->user_id = User::getUserIdForOrder($this);
             $order->name = $this->name;
@@ -172,7 +186,8 @@ class OrderForm extends Model
             $order->email = $this->email;
             $order->payment_type = $this->paymentType;
             $order->delivery_type = $this->deliveryType;
-            $order->address = $this->address;
+            $order->address = $address;
+            $order->city = $this->city;
             $order->street = $this->street;
             $order->house = $this->house;
             $order->apartment = $this->apartment;
@@ -203,9 +218,9 @@ class OrderForm extends Model
             $this->sendEmail($order, $orderItems);
 
             //Info about order for Pokupon
-            PokuponChecker::setPokuponInfoAfterOrderDone($order->id, $order->sum);
+            //PokuponChecker::setPokuponInfoAfterOrderDone($order->id, $order->sum);
 
-            StoreOrder::createOrderInRetailCrm($order->id);
+            //StoreOrder::createOrderInRetailCrm($order->id);
 
             $this->createdOrder = $order;
             return true;
@@ -233,27 +248,6 @@ class OrderForm extends Model
         $orderProduct->order_id = $order->id;
         $orderProduct->product_id = $pos->id;
         $orderProduct->sku = $pos->variant ? $pos->getVariant()['sku'] : $pos->sku;
-        $orderProduct->qnt = $pos->getQuantity();
-        $orderProduct->save(false);
-
-        return $orderProduct;
-    }
-
-    /**
-     * @param CartPositionInterface $pos
-     * @param \app\modules\store\models\StoreOrder $order
-     *
-     * @return StoreOrderProduct
-     */
-    public function createCertifcateProduct(CartPositionInterface $pos, \app\modules\store\models\StoreOrder $order)
-    {
-        /**
-         * @var Certificate $pos
-         */
-        $orderProduct = new StoreOrderProduct();
-        $orderProduct->order_id = $order->id;
-        $orderProduct->cert_id = $pos->id;
-        $orderProduct->sku = $pos->getLabel();
         $orderProduct->qnt = $pos->getQuantity();
         $orderProduct->save(false);
 
@@ -322,7 +316,7 @@ class OrderForm extends Model
             $this->email = $user->email;
             $this->phone = str_replace('+380 ', '', $user->phone);
             $this->name = $user->name . ' '. $user->surname;
-            $this->discountCard = $user->discount_card;
+            //$this->discountCard = $user->discount_card;
             $this->address = $user->address;
         }
     }

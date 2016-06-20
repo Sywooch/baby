@@ -74,6 +74,7 @@ ul.pagination li:hover:not(.active) a {
 	text-align: center;
 	padding: 20px 20px 12px;
 	width: 100%;
+	height: 65px;
 }
 .checkout-content .right {
 	background: none;
@@ -86,11 +87,19 @@ ul.pagination li:hover:not(.active) a {
 	max-width: 450px;
 	top: 20px;
 	position: relative;
+	height: 30px;
 }
 #orderform-comment {
 	width: 97%;
 	min-height: 100px;
+	margin-top: 55px;
 }
 #order-form .help-block {
 	position: absolute;
+}
+.to-cart {
+	float: left;
+}
+.continue-shopping {
+	float: right;
 }

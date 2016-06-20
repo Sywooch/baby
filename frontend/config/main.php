@@ -132,7 +132,7 @@ return [
                 ['pattern' => 'cart/update/<id:\d+>', 'route' => 'store/cart/update'],
                 ['pattern' => 'cart', 'route' => 'store/cart/show-cart'],
                 ['pattern' => 'cart/checkout', 'route' => 'store/cart/checkout'],
-                ['pattern' => 'cart/thank-for-the-order', 'route' => 'store/cart/order-done'],
+                ['pattern' => 'cart/thank-for-the-order/<hash>', 'route' => 'store/cart/order-done'],
 
                 ['pattern' => 'blog/post-a-comment', 'route' => 'blog/blog/post-a-comment'],
                 ['pattern' => 'blog/<rubric>', 'route' => 'blog/blog/index'],

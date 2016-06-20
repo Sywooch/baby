@@ -75,8 +75,8 @@ $totalCost = $cart->getCost() . ' ' . Currency::getDefaultCurrencyCode();
                                 return Html::tag(
                                     'tr',
                                     Html::tag('td',
-                                        Html::input('radio', $name, $value, ['checked' => $checked, 'id' => 'radio_payment_'.$index, 'class' => 'radioclass']).
-                                        Html::label($label, 'radio_payment_'.$index)
+                                        Html::input('radio', $name, $value, ['checked' => $checked, 'id' => 'radio_delivery_'.$index, 'class' => 'radioclass']).
+                                        Html::label($label, 'radio_delivery_'.$index)
                                     ),
                                     ['class' => 'highlight']
                                 );
@@ -116,7 +116,7 @@ $totalCost = $cart->getCost() . ' ' . Currency::getDefaultCurrencyCode();
                 </table>
             </div>
 
-            <p class="comment-p"><?= \Yii::t('front', 'Add Comments About Your Order') ?></p>
+            <div class="comment-p"><?= \Yii::t('front', 'Add Comments About Your Order') ?></div>
             <?= $form->field($model, 'comment')->textarea() ?>
             <br>
             <br>
@@ -159,7 +159,7 @@ $totalCost = $cart->getCost() . ' ' . Currency::getDefaultCurrencyCode();
             <div class="payment">
                 <div class="buttons">
                     <div class="right">
-                        <input type="submit" value="<?= \Yii::t('front', 'Confirm Order') ?>" id="button-confirm" class="button">
+                        <?= Html::submitInput(\Yii::t('front', 'Confirm Order'), ['class' => 'button']) ?>
                     </div>
                 </div>
             </div>

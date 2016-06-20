@@ -19,7 +19,7 @@
         <a class="no-print" href="javascript:window.print()"><h1>Печать</h1></a>
 
         <div class="content">
-            <img class="img" src="<?= Yii::$app->view->theme->baseUrl ?>/img/logo-f.png"/>
+            <!--<img class="img" src="<?/*= Yii::$app->view->theme->baseUrl */?>/img/logo-f.png"/>-->
         </div>
         <?= $content; ?>
     </div>

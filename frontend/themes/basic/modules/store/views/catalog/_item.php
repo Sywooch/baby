@@ -3,6 +3,7 @@
  * @var $model StoreProduct
  */
 use app\modules\store\models\StoreProduct;
+use app\modules\store\models\StoreProductCartPosition;
 use metalguardian\fileProcessor\helpers\FPM;
 
 $url = $model->getProductUrl(); ?>
@@ -25,7 +26,10 @@ $url = $model->getProductUrl(); ?>
         <?= $this->render('//layouts/_wrap_price', ['product' => $model]) ?>
         <p class="description"><?= $model->announce ?></p>
         <p class="submit">
-            <input type="button" value="<?= \Yii::t('front', 'Add to Cart') ?>" class="button">
+            <?php $url = StoreProductCartPosition::getCartAddUrl(['id' => $model->id]) ?>
+            <a class="ajax-popup-link" href="<?= $url ?>" data-url="<?= $url ?>">
+                <input type="button" value="<?= \Yii::t('front', 'Add to Cart') ?>" class="button">
+            </a>
         </p>
     </div>
 </div>

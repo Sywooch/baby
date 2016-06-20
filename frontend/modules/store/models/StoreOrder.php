@@ -62,42 +62,11 @@ class StoreOrder extends FrontModel
                     'house',
                     'apartment',
                     'nova_poshta_storage',
-                    'discount_card',
                     'promo_code'
                 ],
                 'string',
                 'max' => 255
             ]
-        ];
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function attributeLabels()
-    {
-        return [
-            'id' => 'ID',
-            'name' => 'Имя, фамилия',
-            'phone' => 'Телефон',
-            'address' => 'Адрес',
-            'email' => 'Email',
-            'street' => 'Улица',
-            'house' => 'Дом',
-            'apartment' => 'Квартира',
-            'nova_poshta_storage' => 'Склад новой почты',
-            'discount_card' => 'Скидочная карта',
-            'promo_code' => 'Промо-код',
-            'comment' => 'Комментарий',
-            'payment_type' => 'Тип оплаты',
-            'delivery_type' => 'Тип доставки',
-            'delivery_time' => 'Время доставки',
-            'status' => 'Cтатус',
-            'recalculateTotalPrice' => 'Пересчитать сумму заказа',
-            'created' => 'Создано',
-            'modified' => 'Обновлено',
-            'sum' => 'Стоимость',
-            'payment_status' => 'Оплачен'
         ];
     }
 

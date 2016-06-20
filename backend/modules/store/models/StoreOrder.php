@@ -72,7 +72,7 @@ class StoreOrder extends \backend\components\BackModel
             [['sum'], 'default', 'value' => 0.00],
             ['email', 'email'],
             [['name', 'address', 'phone', 'email', 'street', 'house', 'apartment', 'nova_poshta_storage', 'discount_card', 'promo_code'], 'string', 'max' => 255],
-            [['id', 'payment_status', 'name', 'sum', 'phone', 'email', 'street', 'house', 'apartment', 'nova_poshta_storage', 'discount_card', 'promo_code', 'comment', 'payment_type', 'delivery_type', 'delivery_time', 'status', 'created', 'modified'], 'safe', 'on' => 'search']
+            [['id', 'payment_status', 'name', 'sum', 'phone', 'email', 'street', 'house', 'apartment', 'nova_poshta_storage', 'promo_code', 'comment', 'payment_type', 'delivery_type', 'delivery_time', 'status', 'created', 'modified'], 'safe', 'on' => 'search']
         ];
     }
 
@@ -91,7 +91,6 @@ class StoreOrder extends \backend\components\BackModel
             'house' => 'Дом',
             'apartment' => 'Квартира',
             'nova_poshta_storage' => 'Склад новой почты',
-            'discount_card' => 'Скидочная карта',
             'promo_code' => 'Промо-код',
             'comment' => 'Комментарий',
             'payment_type' => 'Тип оплаты',
@@ -229,17 +228,17 @@ class StoreOrder extends \backend\components\BackModel
                 'name',
                 'phone',
                 'email',
-                'street',
-                'house',
-                'apartment',
+                'address',
+               /* 'house',
+                'apartment',*/
                 'nova_poshta_storage',
-                'discount_card',
-                'promo_code',
+                //'discount_card',
+                //'promo_code',
                 'comment',
                 'payment_type',
                 'payment_status:boolean',
                 'delivery_type',
-                'delivery_time',
+                //'delivery_time',
                 'status',
                 'created',
                 'modified',
@@ -306,7 +305,7 @@ class StoreOrder extends \backend\components\BackModel
                     'address' => [
                         'type' => Form::INPUT_TEXT,
                     ],
-                    'street' => [
+                    /*'street' => [
                         'type' => Form::INPUT_TEXT,
                     ],
                     'house' => [
@@ -314,13 +313,13 @@ class StoreOrder extends \backend\components\BackModel
                     ],
                     'apartment' => [
                         'type' => Form::INPUT_TEXT,
-                    ],
+                    ],*/
                     'nova_poshta_storage' => [
                         'type' => Form::INPUT_TEXT,
                     ],
-                    'discount_card' => [
+                    /*'discount_card' => [
                         'type' => Form::INPUT_TEXT,
-                    ],
+                    ],*/
 //            'promo_code' => [
 //                'type' => Form::INPUT_TEXT,
 //            ],
@@ -336,10 +335,10 @@ class StoreOrder extends \backend\components\BackModel
                         'type' => Form::INPUT_DROPDOWN_LIST,
                         'items' => \common\models\StoreOrder::getDeliveryTypeList()
                     ],
-                    'delivery_time' => [
+                   /* 'delivery_time' => [
                         'type' => Form::INPUT_DROPDOWN_LIST,
                         'items' => \common\models\StoreOrder::getDeliveryTimeList()
-                    ],
+                    ],*/
                     'status' => [
                         'type' => Form::INPUT_DROPDOWN_LIST,
                         'items' => \common\models\StoreOrder::getStatusList()

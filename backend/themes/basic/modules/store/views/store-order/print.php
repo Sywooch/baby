@@ -1,7 +1,5 @@
 <?php
 /**
- * Author: Pavel Naumenko
- *
  * @var \backend\modules\store\models\StoreOrder $model
  */
 use yii\helpers\Html;
@@ -43,7 +41,7 @@ echo Html::tag('li', Html::tag('strong', 'Информация о заказе:'
 echo Html::tag('li', 'Имя: ' . $model->name);
 echo Html::tag('li', 'Телефон: ' . $model->phone);
 echo Html::tag('li', 'Адрес: ' . $model->getFullAddress());
-echo Html::tag('li', 'Время доставки: ' . \common\models\StoreOrder::getDeliveryTime($model->delivery_time));
+//echo Html::tag('li', 'Время доставки: ' . \common\models\StoreOrder::getDeliveryTime($model->delivery_time));
 echo Html::tag('li', 'Склад Новой почты: ' . $model->nova_poshta_storage);
 echo Html::endTag('ul');
 

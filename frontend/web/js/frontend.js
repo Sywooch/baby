@@ -26,6 +26,9 @@ $(function () {
 	$(document).on("click", ".limit-items-selectBox-dropdown-menu li, .sort-items-selectBox-dropdown-menu li", function(e){
 		window.location = $(this).find('a').attr('rel');
 	});
+	$(document).on("click", "#checkout tr.highlight td", function(e){
+		$(this).find('input').attr('checked', 1);
+	});
 	$(document).on("keyup", ".cart-quantity", function(e){
 		var quantity = $(this).val();
 		if (quantity) {
@@ -121,54 +124,6 @@ $(function () {
 		if (variantBuyUrl) {
 			$('.btn-round__purp.ajax-link').attr('href', variantBuyUrl);
 		}
-	});
-
-	$(document).on('beforeSubmit', '#order-form', function(event, jqXHR, settings) {
-		var form = $(this);
-		var videoContainer = $('#popup-video .video-popup-w');
-		var passButton = $('#popup-video .btn-pass-w');
-
-		if (videoContainer.length) {
-			var videoId = $('#currentVideoId');
-			var requestData;
-			if (videoId.length) {
-				requestData = form.serialize() + '&videoId=' + videoId.val();
-			} else {
-				requestData = form.serialize();
-			}
-
-			executeAjaxRequest(form.attr('action')+'?orderCreateRequest=1', requestData, function(){
-				passButton.show();
-				_gaq.push(['_trackEvent', 'checkout', 'click']);
-			});
-
-			var playerOff = function(){
-				window.location = passButton.attr('href');
-				$('#popup-video').removeClass('show-popup-video');
-			};
-			var player = $('#popup-video video').get(0);
-
-			player.addEventListener('ended', playerOff);
-
-
-			if (videoContainer.hasClass('video-html')) {
-
-				setTimeout(function () {
-					player.currentTime = 0;
-					player.play();
-
-				}, 100);
-
-			}
-			$('#popup-video').addClass('show-popup-video');
-
-		}
-
-		return false;
-	});
-
-	$(document).on('click', '#popup-video .btn-pass-w', function(event){
-		$('#popup-video').removeClass('show-popup-video');
 	});
 
 	$(document).on('click', '.close-fancybox', function(event) {
