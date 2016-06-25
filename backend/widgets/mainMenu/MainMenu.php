@@ -125,7 +125,10 @@ class MainMenu extends Widget
                     ],
                 ]
             ];*/
-
+            $menuItems[] = [
+                'label' => 'Обратная связь',
+                'url' => ['/feedback/feedback/index']
+            ];
             $menuItems[] = [
                 'label' => 'Модули',
                 'items' => [

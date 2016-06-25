@@ -21,11 +21,9 @@ use yii\widgets\ActiveForm;
             </div>
             <div class="contact-info">
                 <ul>
-                    <li class="item_1">John Doe Street 1<br>
-                        12345 Berlin<br>
-                        Germany</li>
-                    <li class="item_2">030 - 123456789</li>
-                    <li class="item_3">030 - 123456710</li>
+                    <li class="item_1"><?= Yii::$app->config->get('address') ?></li>
+                    <li class="item_2"><?= Yii::$app->config->get('contact_phone_1') ?></li>
+                    <li class="item_2"><?= Yii::$app->config->get('contact_phone_2') ?></li>
                 </ul>
             </div>
             <div class="social-info"> <span><?= \Yii::t('front', 'Find us on') ?></span>

@@ -23,11 +23,11 @@ $googlePlusLink = $googlePlusLink ? $googlePlusLink : '#';
                         <div class="text_item">
                             <p class="info_contact"> <span><?= Yii::t('front', 'footer_text_contact_us') ?></span> </p>
                             <p class="online_contact">
-                                <span class="phone">012 - 34 456 778</span>
-                                <span class="phone">012 - 345 67 89</span>
-                                <span class="fax">012 - 345 67 890</span>
+                                <span class="phone"><?= Yii::$app->config->get('contact_phone_1') ?></span>
+                                <span class="phone"><?= Yii::$app->config->get('contact_phone_2') ?></span>
+                                <?php $email = Yii::$app->config->get('admin_email') ?>
                                 <span class="mail">
-                                    <a class="color" href="mailto:contact@thingsforcuties.doe" title="Mail">contact@thingsforcuties.doe</a>
+                                    <a class="color" href="mailto:<?= $email ?>" title="Email"><?= $email ?></a>
                                 </span>
                             </p>
                         </div>

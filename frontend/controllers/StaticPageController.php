@@ -27,8 +27,8 @@ class StaticPageController extends FrontController
             throw new NotFoundHttpException;
         }
         $contactForm = new ContactForm();
-        if ($contactForm->load(Yii::$app->request->post()) && $contactForm->validate()) {
-            if ($contactForm->sendEmail(Yii::$app->params['adminEmail'])) {
+        if ($contactForm->load(Yii::$app->request->post()) && $contactForm->save()) {
+            if ($contactForm->sendEmail()) {
                 $message = Yii::t('front', 'Thank you for contacting us. We will respond to you as soon as possible.');
                 Yii::$app->session->setFlash('contact-form-message', $message);
             } else {

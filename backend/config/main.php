@@ -52,6 +52,9 @@ return [
         'staticPage' => [
             'class' => 'backend\modules\staticPage\Module',
         ],
+        'feedback' => [
+            'class' => 'backend\modules\feedback\Module',
+        ],
         'i18n' => Zelenin\yii\modules\I18n\Module::className()
     ],
     'components' => [

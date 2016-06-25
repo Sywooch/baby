@@ -35,7 +35,7 @@ use yii\helpers\Url;
                 <div id="carousel-p">
                     <ul class="jcarousel-skin-tfc">
                         <?php foreach ($model->allImages as $image): ?>
-                            <?php $imageSrc = FPM::src($image->file_id, 'product', 'smallPreview') ?>
+                            <?php $imageSrc = FPM::src($image->file_id, 'product', 'big') ?>
                             <li>
                                 <a href="<?= $imageSrc ?>" title="" class="cloud-zoom-gallery" rel="useZoom: 'zoom1', smallImage: '<?= $imageSrc ?>' ">
                                     <?= FPM::image($image->file_id, 'product', 'smallPreview') ?>
