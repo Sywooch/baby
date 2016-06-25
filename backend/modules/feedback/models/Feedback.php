@@ -93,6 +93,7 @@ class Feedback extends BackModel
                 'name',
                 'body',
                 'email',
+                'created'
             ]
             : [
                 [
@@ -101,6 +102,7 @@ class Feedback extends BackModel
                 ],
                 'name',
                 'email',
+                'created',
 
                 [
                     'class' => \yii\grid\ActionColumn::className()
@@ -125,6 +127,9 @@ class Feedback extends BackModel
             'email' => [
                 'type' => Form::INPUT_TEXT,
             ],
+            'created' => [
+                'type' => Form::INPUT_STATIC,
+            ],
 
         ];
     }
@@ -134,7 +139,7 @@ class Feedback extends BackModel
      */
     public function getColCount()
     {
-        return 2;
+        return 1;
     }
 
     /**
@@ -142,6 +147,6 @@ class Feedback extends BackModel
      */
     public function getBreadCrumbRoot()
     {
-        return 'Feedback';
+        return 'Обратная связь';
     }
 }

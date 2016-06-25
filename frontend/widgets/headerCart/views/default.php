@@ -61,10 +61,12 @@ $totalCost = $cart->getCost() . ' ' . Currency::getDefaultCurrencyCode();
                 </tbody>
             </table>
         </div>
-        <div class="checkout">
-            <a class="button mr" href="<?= StoreProductCartPosition::getShowCartUrl() ?>"><?= \Yii::t('front', 'View Cart') ?></a>
-            <a class="button" href="<?= StoreProductCartPosition::getCheckoutUrl() ?>"><?= \Yii::t('front', 'Checkout') ?></a>
-        </div>
+        <?php if (!$cart->isEmpty) { ?>
+            <div class="checkout">
+                <a class="button mr" href="<?= StoreProductCartPosition::getShowCartUrl() ?>"><?= \Yii::t('front', 'View Cart') ?></a>
+                <a class="button" href="<?= StoreProductCartPosition::getCheckoutUrl() ?>"><?= \Yii::t('front', 'Checkout') ?></a>
+            </div>
+        <?php } ?>
     </div>
 </div>
 

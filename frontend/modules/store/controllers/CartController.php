@@ -256,6 +256,9 @@ class CartController extends FrontController
      */
     public function actionCheckout()
     {
+        if (\Yii::$app->cart->isEmpty) {
+            throw new HttpException('404', 'Корзина пуста, сперва добавте товар.');
+        }
         $form = new OrderForm();
 
         if (\Yii::$app->request->isAjax && $form->load(\Yii::$app->request->post())) {

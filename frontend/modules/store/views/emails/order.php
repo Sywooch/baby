@@ -1,7 +1,5 @@
 <?php
 /**
- * Author: Pavel Naumenko
- *
  * @var \app\modules\store\models\StoreOrder $order
  * @var \app\modules\store\models\StoreOrderProduct[] $orderItems
  * @var \app\modules\store\models\StoreOrderProduct $orderItem
@@ -64,7 +62,5 @@ echo Html::tag('p', 'Доставка: ' . \common\models\StoreOrder::getDeliver
 echo Html::tag('p', 'Улица: ' . $order->street);
 echo Html::tag('p', 'Дом: ' . $order->house);
 echo Html::tag('p', 'Квартира: ' . $order->apartment);
-echo Html::tag('p', 'Время доставки: ' . \common\models\StoreOrder::getDeliveryTime($order->delivery_time));
 echo Html::tag('p', 'Склад Новой почты: ' . $order->nova_poshta_storage);
-echo Html::tag('p', 'Скидочная карта: ' . $order->discount_card);
 echo Html::tag('p', 'Комментарий: ' . $order->comment);
