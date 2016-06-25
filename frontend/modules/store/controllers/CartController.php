@@ -252,6 +252,7 @@ class CartController extends FrontController
 
     /**
      * @return string
+     * @throws HttpException
      */
     public function actionCheckout()
     {

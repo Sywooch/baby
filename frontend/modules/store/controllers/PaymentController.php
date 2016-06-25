@@ -105,7 +105,7 @@ class PaymentController extends FrontController
      */
     public function actionSuccessPayment()
     {
-        $this->layout = '//simple';
+        //$this->layout = '//simple';
 
         return $this->render('success');
     }
@@ -115,7 +115,7 @@ class PaymentController extends FrontController
      */
     public function actionFailedPayment()
     {
-        $this->layout = '//simple';
+        //$this->layout = '//simple';
 
         return $this->render('fail');
     }

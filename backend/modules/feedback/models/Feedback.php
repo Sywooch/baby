@@ -76,6 +76,7 @@ class Feedback extends BackModel
         $query->andFilterWhere(['like', 'name', $this->name]);
         $query->andFilterWhere(['body' => $this->body]);
         $query->andFilterWhere(['like', 'email', $this->email]);
+        $query->orderBy('id DESC');
 
         return $dataProvider;
     }

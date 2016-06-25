@@ -20,7 +20,7 @@ class InterkassaFormFactory extends APaymentFormFactory
     public function createPaymentForm($payment, $data = [])
     {
         $iForm = new InterkassaPaymentForm();
-        $iForm->ik_co_id = \Yii::$app->config->get('interkassa_store_id');
+        $iForm->ik_co_id = \Yii::$app->params['interkassaID'];
         $iForm->ik_am = $payment->sum_uah;
         $iForm->ik_pm_no = $payment->id;
         $iForm->ik_desc = 'Оплата заказа';

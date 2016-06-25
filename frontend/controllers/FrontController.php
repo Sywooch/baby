@@ -63,6 +63,7 @@ class FrontController extends Controller
     public function init()
     {
         parent::init();
+        date_default_timezone_set('Europe/Kiev');
         //Catalog menu is default
         $this->contactPhone = \Yii::$app->config->get('contact_phone');
 
