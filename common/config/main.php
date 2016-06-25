@@ -42,22 +42,6 @@ return [
         'config' => [
             'class' => 'common\components\ConfigurationComponent'
         ],
-        'postman' => [
-            'class' => 'rmrevin\yii\postman\Component',
-            'driver' => 'smtp',
-            'default_from' => ['noreply@baby.com', 'baby'],
-            'table' => '{{%email_queue}}',
-            'view_path' => '/emails',
-            'smtp_config' => [
-                'host' => 'smtp.mandrillapp.com',
-                'port' => 587,
-                'auth' => true,
-                'user' => '',
-                'password' => '',
-                'secure' => 'tls',
-                'debug' => false,
-            ]
-        ],
     ],
     'params' => []
 ];

@@ -12,6 +12,7 @@ use common\models\StoreOrder;
 use common\models\StoreProduct;
 use frontend\components\UnusedParamsFilter;
 use frontend\controllers\FrontController;
+use frontend\modules\common\models\PageSeo;
 use frontend\widgets\headerCart\Widget;
 use Imagine\Exception\InvalidArgumentException;
 use yii\base\Exception;
@@ -32,11 +33,6 @@ class CartController extends FrontController
      * @var null|string
      */
     public $redirectAfterOrderUrl = null;
-
-    /**
-     * @var string
-     */
-    public $salt = '37a2lj4jLJlSDeo293';
 
     /**
      * @inheritdoc
@@ -168,6 +164,8 @@ class CartController extends FrontController
      */
     public function actionShowCart()
     {
+        $this->modelToFetchSeo = PageSeo::findOne(9);
+
         return $this->render('cart');
     }
 
@@ -183,8 +181,9 @@ class CartController extends FrontController
             ? Json::decode(\Yii::$app->session->getFlash('order'))
             : false;*/
 
+        $this->modelToFetchSeo = PageSeo::findOne(2);
         $id = base64_decode($hash);
-        $id = str_replace($this->salt, '', $id);
+        $id = str_replace(\Yii::$app->params['orderSalt'], '', $id);
         $order = StoreOrder::findOne($id);
         if (!$order) {
             throw new HttpException(404, \Yii::t('front', 'Can\'t find order'));
@@ -236,7 +235,7 @@ class CartController extends FrontController
                 'id' => $order->id,
                 'sum' => $order->sum
             ]));
-            $hash = base64_encode($this->salt . $order->id);
+            $hash = base64_encode(\Yii::$app->params['orderSalt'] . $order->id);
 
             $redirectUrl = $form->isExternalPayment()
                 ? Payment::getPayUrl(['orderId' => $order->id])
@@ -256,6 +255,8 @@ class CartController extends FrontController
      */
     public function actionCheckout()
     {
+        $this->modelToFetchSeo = PageSeo::findOne(12);
+
         if (\Yii::$app->cart->isEmpty) {
             throw new HttpException('404', 'Корзина пуста, сперва добавте товар.');
         }

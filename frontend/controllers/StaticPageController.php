@@ -26,6 +26,7 @@ class StaticPageController extends FrontController
         if (!$model) {
             throw new NotFoundHttpException;
         }
+        $this->modelToFetchSeo = $model;
         $contactForm = new ContactForm();
         if ($contactForm->load(Yii::$app->request->post()) && $contactForm->save()) {
             if ($contactForm->sendEmail()) {

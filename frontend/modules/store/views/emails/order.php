@@ -16,6 +16,7 @@ echo Html::tag('p', 'Новый заказ на сайте #' . $order->id);
 echo Html::beginTag('table', ['style' => 'border: 1px solid black; width:100%; border-collapse:collapse;']);
 echo Html::beginTag('thead');
 echo Html::beginTag('tr');
+echo Html::tag('td', 'Артикул', ['style' => 'border: 1px solid black;']);
 echo Html::tag('td', 'Название', ['style' => 'border: 1px solid black;']);
 echo Html::tag('td', 'Кол-во, шт', ['style' => 'border: 1px solid black;']);
 echo Html::tag('td', 'Цена, грн.', ['style' => 'border: 1px solid black;']);
@@ -24,26 +25,18 @@ echo Html::endTag('tr');
 echo Html::endTag('thead');
 foreach ($orderItems as $orderItem) {
 
-    if ($orderItem->cert_id) {
-        $price = $orderItem->cert->getPrice();
-        $label = $orderItem->sku;
-    } else {
-        $price = $orderItem->product->getPrice();
-        $label = Html::a(
-            $orderItem->product->label,
-            Url::to(
-                StoreProduct::getProductUrl(['alias' => $orderItem->product->alias]),
-                true
-            )
-        );
-    }
+    $price = $orderItem->product->getPrice();
+    $label = Html::a(
+        $orderItem->product->label,
+        Url::to(
+            StoreProduct::getProductUrl(['alias' => $orderItem->product->alias]),
+            true
+        )
+    );
 
     echo Html::beginTag('tr');
-    echo Html::tag(
-        'td',
-        $label,
-        ['style' => 'border: 1px solid black;']
-    );
+    echo Html::tag('td', $orderItem->sku, ['style' => 'border: 1px solid black;']);
+    echo Html::tag('td', $label, ['style' => 'border: 1px solid black;']);
     echo Html::tag('td', $orderItem->qnt, ['style' => 'border: 1px solid black;']);
     echo Html::tag('td', $price, ['style' => 'border: 1px solid black;']);
     echo Html::tag('td', $price * $orderItem->qnt, ['style' => 'border: 1px solid black;']);

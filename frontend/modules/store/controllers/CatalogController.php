@@ -66,6 +66,8 @@ class CatalogController extends FrontController
     {
         $dataProvider = $this->commonAction(null, $search);
 
+        $this->modelToFetchSeo = PageSeo::findOne(3);
+
         return $this->render('search', [
             'search' => $search,
             'dataProvider' => $dataProvider,

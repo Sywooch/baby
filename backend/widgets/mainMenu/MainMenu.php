@@ -130,20 +130,15 @@ class MainMenu extends Widget
                 'url' => ['/feedback/feedback/index']
             ];
             $menuItems[] = [
-                'label' => 'Модули',
+                'label' => 'SEO',
                 'items' => [
                     [
-                        'label' => 'SEO',
-                        'items' => [
-                            [
-                                'label' => 'Теги',
-                                'url' => ['/seo/meta-tag/index']
-                            ],
-                            [
-                                'label' => 'Заполнение тегов',
-                                'url' => ['/seo/page-seo/index']
-                            ],
-                        ]
+                        'label' => 'Сео статических страниц',
+                        'url' => ['/seo/page-seo/index']
+                    ],
+                    [
+                        'label' => 'Теги',
+                        'url' => ['/seo/meta-tag/index']
                     ],
                     /*[
                         'label' => 'Пользователи',
