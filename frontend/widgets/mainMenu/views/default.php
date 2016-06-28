@@ -4,11 +4,13 @@
  * @var $child StoreCategory
  */
 use app\modules\store\models\StoreCategory;
+use common\models\StaticPage;
+
 ?>
 <div id="menu">
     <ul>
         <?php foreach ($categories as $key => $category): ?>
-            <li class="menu_item down <?= $count == $key ? 'last_item' : '' ?>">
+            <li class="menu_item down <?php //echo $count == $key ? 'last_item' : '' ?>">
                 <a href="<?= $category->getCatalogUrl() ?>"><?= $category->label ?></a>
                 <?php $children = $category->getChildren() ?>
                 <?php if ($children) { ?>
@@ -23,9 +25,11 @@ use app\modules\store\models\StoreCategory;
                         </div>
                     </div>
                 <?php } ?>
-
             </li>
         <?php endforeach; ?>
+        <li class="menu_item down last_item">
+            <a href="<?= StaticPage::getContactsUrl() ?>"><?= \Yii::t('front', 'Contact us') ?></a>
+        </li>
     </ul>
 </div>
 <div id="mobile-menu">
@@ -37,6 +41,9 @@ use app\modules\store\models\StoreCategory;
                     <li><a href="<?= $child->getCatalogUrl() ?>"><?= $child->label ?></a></li>
                 <?php endforeach; ?>
             <?php endforeach; ?>
+            <li>
+                <a href="<?= StaticPage::getContactsUrl() ?>"><?= \Yii::t('front', 'Contact us') ?></a>
+            </li>
         </ul>
     </div>
 </div>

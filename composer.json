@@ -18,10 +18,10 @@
     {
       "type": "package",
       "package": {
-        "name": "ilikenwf/nestedSortable",
+        "name": "mjsarfatti/nestedSortable",
         "version": "2.0alpha",
         "source": {
-          "url": "https://github.com/ilikenwf/nestedSortable",
+          "url": "https://github.com/mjsarfatti/nestedSortable",
           "type": "git",
           "reference": "2.0alpha"
         }
@@ -53,7 +53,7 @@
     "notgosu/yii2-i18n-module": "dev-master",
     "notgosu/yii2-meta-tag-module": "0.1.0",
     "himiklab/yii2-sortable-grid-view-widget": "*",
-    "ilikenwf/nestedSortable": "2.0alpha",
+    "mjsarfatti/nestedSortable": "2.0alpha",
     "kartik-v/yii2-nav-x": "*",
     "omnilight/yii2-shopping-cart": "1.1.0",
     "mobiledetect/mobiledetectlib": "dev-master",

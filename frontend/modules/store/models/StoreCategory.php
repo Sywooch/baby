@@ -237,7 +237,10 @@ class StoreCategory extends FrontModel
      */
     public static function getParentCategories()
     {
-        return static::findAll(['level' => 2, 'visible' => 1]);
+        return static::find()
+            ->where(['level' => 2, 'visible' => 1])
+            ->orderBy('lft')
+            ->all();
     }
 
     /**

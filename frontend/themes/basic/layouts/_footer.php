@@ -10,7 +10,7 @@ $googlePlusLink = Yii::$app->config->get('google_plus_link');
 $googlePlusLink = $googlePlusLink ? $googlePlusLink : '#';
 ?>
 <div id="footer">
-    <div id="footer_top">
+    <?php /*<div id="footer_top">
         <div class="footer_wrapper">
             <div id="footer_top_content">
                 <div id="footer_top_item">
@@ -32,7 +32,7 @@ $googlePlusLink = $googlePlusLink ? $googlePlusLink : '#';
                             </p>
                         </div>
                     </div>
-                    <?php /*<div class="footer_top_item " id="twitter_news">
+                    <div class="footer_top_item " id="twitter_news">
                         <h3 class="title_item_3 down" ><a href="http://www.twitter.com/Mouseevent">Twitter Feed</a></h3>
                         <div class="text_item content_item_3">
                             <div id="twitter_update_list">
@@ -54,12 +54,12 @@ $googlePlusLink = $googlePlusLink ? $googlePlusLink : '#';
                                 }(document, 'script', 'facebook-jssdk'));</script>
                             <div class="fb-like-box" data-href="https://www.facebook.com/mouseevent.berlin.brandenburg" data-width="220" data-height="250" data-show-faces="true" data-stream="false" data-show-border="false" data-header="false"></div>
                         </div>
-                    </div>*/ ?>
+                    </div>
                     <div class="clear"></div>
                 </div>
             </div>
         </div>
-    </div>
+    </div>*/ ?>
     <div class="footer_wrapper">
         <div id="footer_bottom">
             <div class="footer_bottom_item">

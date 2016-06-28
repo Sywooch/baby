@@ -1,6 +1,14 @@
 /* ****************************************************************************
 		RESET / GENERAL
 **************************************************************************** */
+@font-face {
+	font-family: "Segoe Print";
+	src: url("../fonts/Segoe-Print.ttf");
+}
+/*@font-face {
+	font-family: "Source Sans Pro";
+	src: url("../fonts/Segoe-Print.ttf");
+}*/
 html, body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, abbr, address, cite, code, del, dfn, em, img, ins, kbd, q, samp, small, strong, sub, sup, var, b, i, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary, time, mark, audio, video {
 	margin: 0;
 	padding: 0;
@@ -128,7 +136,7 @@ body, td, th, input, textarea, select, a {
 	font-size: 12px;
 }
 h1, .welcome {
-	font-family: 'Gochi Hand', Times;
+	font-family: 'Segoe Print', Times;
 	font-size: 28px;
 	color: #205e75;
 	font-weight: normal;
@@ -968,7 +976,7 @@ a.button:hover, input.button:hover, input.hover {
 .content_slider p {
 	color: #6e4900;
 	font-size: 1.8em;
-	font-family: 'Gochi Hand', Times;
+	font-family: 'Segoe Print', Times;
 	text-align: center;
 	padding: 0 1em;
 	float: left;
@@ -1110,7 +1118,7 @@ table.radio tr.highlight:hover td {
 	clear:both;
 }
 .box-heading, #column-left .title_module, #column-right .title_module {
-	font-family: 'Gochi Hand', Times;
+	font-family: 'Segoe Print', Times;
 	font-weight: normal;
 	color: #665F00;
 	font-size: 22px;
@@ -1657,7 +1665,7 @@ ul.box-category > li ul > li > a:hover {
 	margin-bottom: 0;
 }
 .product-list .name a {
-	font-family: 'Gochi Hand', Times;
+	font-family: 'Segoe Print', Times;
 	font-size: 21px;
 	font-weight: normal;
 
@@ -2802,7 +2810,7 @@ ul.greenrect li {
 	margin: 0 0 0.65em;
 	padding: 0 0 0 40px;
 	text-align: left;
-	font-family: 'Gochi Hand', Times;
+	font-family: 'Segoe Print', Times;
 	color: #4d4d4d;
 	font-weight: normal;
 	border-bottom:none;
@@ -2813,7 +2821,7 @@ ul.greenrect li {
 .footer_top_item h3 a {
 	font-size: 1.1em !important;
 	line-height: 1.6em;
-	font-family: 'Gochi Hand', Times;
+	font-family: 'Segoe Print', Times;
 	color: #4d4d4d;
 	font-weight: normal;
 }

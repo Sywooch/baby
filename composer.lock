@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "d57f47f1162800e3d76aeb3036b74079",
-    "content-hash": "05608e39cc2e9ba107227dc69a491a2f",
+    "hash": "b26b38cbe331f58a43602b6cbde9e7b1",
+    "content-hash": "f8b5db5a69759a2b5c5f6b447371476f",
     "packages": [
         {
             "name": "avator/yii2-turbosms",
@@ -52,16 +52,16 @@
         },
         {
             "name": "bower-asset/angular",
-            "version": "v1.5.6",
+            "version": "v1.5.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/angular/bower-angular.git",
-                "reference": "87fbd43f0f4a4d5cbacd284dd89f2291a98805dc"
+                "reference": "8b7bc41468112797f501b2f6502a2be5c6a1bf5f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/angular/bower-angular/zipball/87fbd43f0f4a4d5cbacd284dd89f2291a98805dc",
-                "reference": "87fbd43f0f4a4d5cbacd284dd89f2291a98805dc",
+                "url": "https://api.github.com/repos/angular/bower-angular/zipball/8b7bc41468112797f501b2f6502a2be5c6a1bf5f",
+                "reference": "8b7bc41468112797f501b2f6502a2be5c6a1bf5f",
                 "shasum": ""
             },
             "type": "bower-asset-library",
@@ -774,16 +774,6 @@
             "time": "2014-03-29 16:53:12"
         },
         {
-            "name": "ilikenwf/nestedSortable",
-            "version": "2.0alpha",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/ilikenwf/nestedSortable",
-                "reference": "2.0alpha"
-            },
-            "type": "library"
-        },
-        {
             "name": "imagine/imagine",
             "version": "v0.6.3",
             "source": {
@@ -1420,6 +1410,16 @@
             "time": "2015-10-21 19:30:15"
         },
         {
+            "name": "mjsarfatti/nestedSortable",
+            "version": "2.0alpha",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/mjsarfatti/nestedSortable",
+                "reference": "2.0alpha"
+            },
+            "type": "library"
+        },
+        {
             "name": "mobiledetect/mobiledetectlib",
             "version": "dev-master",
             "source": {
@@ -1528,7 +1528,7 @@
                 "issues": "https://github.com/notgosu/yii2-i18n-module/issues",
                 "source": "https://github.com/notgosu/yii2-i18n-module"
             },
-            "time": "2015-04-07 19:29:32"
+            "time": "2014-11-02 00:00:00"
         },
         {
             "name": "notgosu/yii2-meta-tag-module",
@@ -2974,7 +2974,7 @@
         "bower-asset/jquery-ui": 0,
         "bower-asset/angular": 0,
         "notgosu/yii2-i18n-module": 20,
-        "ilikenwf/nestedsortable": 15,
+        "mjsarfatti/nestedsortable": 15,
         "mobiledetect/mobiledetectlib": 20,
         "ladamalina/yii2-rollbar": 20,
         "udokmeci/yii2-phone-validator": 20

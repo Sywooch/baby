@@ -6,7 +6,7 @@ use app\modules\store\models\StoreProduct;
 use app\modules\store\models\StoreProductCartPosition;
 use metalguardian\fileProcessor\helpers\FPM;
 
-$url = $model->getProductUrl(); ?>
+$url = StoreProduct::getProductUrl(['alias' => $model->alias]) ?>
 <div class="box-product">
     <?php if ($model->is_sale) { ?>
         <span class="new"><?= \Yii::t('front', 'Sale') ?></span>

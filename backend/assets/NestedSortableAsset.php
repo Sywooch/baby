@@ -13,7 +13,7 @@ use yii\web\AssetBundle;
  */
 class NestedSortableAsset extends AssetBundle
 {
-    public $sourcePath = '@vendor/ilikenwf/nestedSortable';
+    public $sourcePath = '@vendor/mjsarfatti/nestedSortable';
     public $js = [
         'jquery.mjs.nestedSortable.js',
     ];
