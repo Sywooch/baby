@@ -174,4 +174,16 @@ class StoreProductTypeSize extends BackModel
             'label'
         ];
     }
+
+    /**
+     * @return string
+     */
+    public function getLabel()
+    {
+        if ($this->height) {
+            return "$this->label ($this->height)";
+        }
+
+        return $this->label;
+    }
 }

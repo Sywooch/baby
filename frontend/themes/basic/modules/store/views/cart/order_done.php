@@ -60,8 +60,8 @@ use yii\helpers\Url;
                 <td class="left"><?= $orderProduct->sku ?></td>
                 <td class="left"><?= $orderProduct->size->typeSize->getLabel() ?></td>
                 <td class="right"><?= $orderProduct->qnt ?></td>
-                <td class="right"><?= $orderProduct->product->price ?> <?= Currency::getDefaultCurrencyCode() ?></td>
-                <td class="right"><?= $orderProduct->product->price * $orderProduct->qnt ?> <?= Currency::getDefaultCurrencyCode() ?></td>
+                <td class="right"><?= $orderProduct->size->price ?> <?= Currency::getDefaultCurrencyCode() ?></td>
+                <td class="right"><?= $orderProduct->size->price * $orderProduct->qnt ?> <?= Currency::getDefaultCurrencyCode() ?></td>
             </tr>
         <?php endforeach; ?>
         </tbody>

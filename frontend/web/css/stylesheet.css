@@ -1665,7 +1665,7 @@ ul.box-category > li ul > li > a:hover {
 	margin-bottom: 0;
 }
 .product-list .name a {
-	font-family: 'Segoe Print', Times;
+	/*font-family: 'Segoe Print', Times;*/
 	font-size: 21px;
 	font-weight: normal;
 

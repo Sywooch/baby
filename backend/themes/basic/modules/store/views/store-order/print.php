@@ -12,6 +12,7 @@ echo Html::beginTag('table');
 echo Html::beginTag('thead');
 echo Html::beginTag('tr');
 echo Html::tag('td', 'Название');
+echo Html::tag('td', 'Размер');
 echo Html::tag('td', 'Кол-во, шт');
 echo Html::tag('td', 'Цена, грн.');
 echo Html::tag('td', 'Общая цена, грн.');
@@ -24,11 +25,12 @@ foreach ($orderItems as $orderItem) {
         'td',
         $orderItem->getProductLabel()
     );
+    echo Html::tag('td', $orderItem->size->size->getLabel());
     echo Html::tag('td', $orderItem->qnt);
-    echo Html::tag('td', $orderItem->getPrice());
+    echo Html::tag('td', $orderItem->size->price);
     echo Html::tag(
         'td',
-        $orderItem->getPrice() * $orderItem->qnt
+        $orderItem->size->price * $orderItem->qnt
     );
     echo Html::endTag('tr');
 }

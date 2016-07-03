@@ -22,6 +22,7 @@ use yii\helpers\Html;
  *
  * @property StoreOrder $order
  * @property StoreProduct $product
+ * @property StoreProductSize $size
  */
 class StoreOrderProduct extends \backend\components\BackModel
 {
@@ -59,6 +60,7 @@ class StoreOrderProduct extends \backend\components\BackModel
             'id' => 'ID',
             'order_id' => 'Order ID',
             'product_id' => 'Продукт',
+            'size_id' => 'Размер',
             'sku' => 'Артикул товара',
             'price' => 'Цена',
             'qnt' => 'Кол-во',
@@ -80,6 +82,14 @@ class StoreOrderProduct extends \backend\components\BackModel
     public function getProduct()
     {
         return $this->hasOne(StoreProduct::className(), ['id' => 'product_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getSize()
+    {
+        return $this->hasOne(StoreProductSize::className(), ['id' => 'size_id']);
     }
 
     /**
@@ -156,17 +166,24 @@ class StoreOrderProduct extends \backend\components\BackModel
                     }
                 ],
                 [
+                    'attribute' => 'size_id',
+                    'format' => 'raw',
+                    'value' => function (self $data) {
+                        return $data->size->size->getLabel();
+                    }
+                ],
+                [
                     'attribute' => 'price',
                     'format' => 'raw',
                     'value' => function (self $data) {
-                        return Html::tag('span', $data->getPrice(), ['class' => 'order-product-price']);
+                        return Html::tag('span', $data->size->price, ['class' => 'order-product-price']);
                     }
                 ],
                 [
                     'attribute' => 'qnt',
-                    'format' => 'raw',
+                    'format' => 'text',
                     'value' => function (self $data) {
-                        return $data->getQnt();
+                        return $data->qnt;
                     },
                     'options' => [
                         'class' => 'col-sm-1'
@@ -178,7 +195,7 @@ class StoreOrderProduct extends \backend\components\BackModel
                     'value' => function (self $data) {
                         return Html::tag(
                             'span',
-                            number_format($data->getPrice() * ($data->qnt ? $data->qnt : 1), 2, '.', ''),
+                            number_format($data->size->price * ($data->qnt ? $data->qnt : 1), 2, '.', ''),
                             ['class' => 'order-product-total']);
                     }
                 ],

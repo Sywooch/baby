@@ -20,6 +20,8 @@ use yii\db\Query;
  * @property string $price
  * @property string $old_price
  * @property integer $position
+ * 
+ * @property StoreProductTypeSize $size
  */
 class StoreProductSize extends \backend\components\BackModel
 {
@@ -53,6 +55,7 @@ class StoreProductSize extends \backend\components\BackModel
         return [
             'id' => 'ID',
             'product_id' => 'ID изделия',
+            'size_id' => 'ID размера',
             'product_type_size_id' => 'Размер изделия',
             'existence' => 'Наличие',
             'price' => 'Цена размера',

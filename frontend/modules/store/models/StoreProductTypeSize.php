@@ -33,6 +33,9 @@ class StoreProductTypeSize extends FrontModel
         return ['label'];
     }
 
+    /**
+     * @return string
+     */
     public function getLabel()
     {
         if ($this->height) {

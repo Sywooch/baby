@@ -358,14 +358,14 @@ class StoreOrder extends \backend\components\BackModel
                     ],
                 ],
                 'Позиции заказа' => [
-                    'recalculateTotalPrice' => [
+                    /*'recalculateTotalPrice' => [
                         'type' => Form::INPUT_CHECKBOX,
                         'hint' => 'Пересчитать сумму заказа на основании суммы цен позиций заказа. Если вы хотите ввести произвольную сумму - снимите эту галочку.'
-                    ],
+                    ],*/
                     'items' => [
                         'type' => Form::INPUT_RAW,
                         'value' => function (self $data) {
-                            return $data->getItemsGrid(). $data->getAddProductInput();
+                            return $data->getItemsGrid()/*. $data->getAddProductInput()*/;
                         }
                     ]
                 ]
@@ -382,7 +382,7 @@ class StoreOrder extends \backend\components\BackModel
 
             $orderProduct = StoreOrderProduct::findOne($orderProductId);
             if ($orderProduct) {
-                $totalSum += $orderProduct->getPrice() * $orderProduct->qnt;
+                $totalSum += $orderProduct->size->price * $orderProduct->qnt;
             }
 
         }
