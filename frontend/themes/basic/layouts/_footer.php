@@ -137,7 +137,7 @@ $googlePlusLink = $googlePlusLink ? $googlePlusLink : '#';
         </div>
     </div>
     <div id="footer-text">
-        <p>Things for Cuties © 2016</p>
+        <p>rays.com.ua © <?= date('Y') ?></p>
     </div>
 </div>
 

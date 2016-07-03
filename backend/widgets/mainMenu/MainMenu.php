@@ -61,11 +61,11 @@ class MainMenu extends Widget
                             ]
                         ],*/
                     ],
-                    /*[
+                    [
                         'label' => 'Типы товаров',
                         'url' => ['/store/store-product-type/index']
                     ],
-                    [
+                    /*[
                         'label' => 'Атрибуты',
                         'url' => ['/store/store-product-attribute/index']
                     ],

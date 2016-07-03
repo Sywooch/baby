@@ -2,6 +2,7 @@
 
 namespace backend\modules\store\models;
 
+use backend\components\CustomMultipleInput;
 use common\models\Language;
 use kartik\select2\Select2;
 use omgdef\multilingual\MultilingualBehavior;
@@ -23,6 +24,7 @@ use yii\helpers\ArrayHelper;
  */
 class StoreProductType extends \backend\components\BackModel
 {
+    public $typeSizes = [];
     public $attrs = [];
 
     /**
@@ -50,7 +52,7 @@ class StoreProductType extends \backend\components\BackModel
             [['label'], 'required'],
             [['position'], 'integer'],
             [['label'], 'string', 'max' => 255],
-            ['attrs', 'safe'],
+            [['attrs', 'typeSizes'], 'safe'],
             [['id', 'label', 'position'], 'safe', 'on' => 'search']
         ];
     }
@@ -104,11 +106,12 @@ class StoreProductType extends \backend\components\BackModel
     {
         parent::afterFind();
 
-        $this->attrs = (new Query())
+        $this->loadTypeSizes();
+        /*$this->attrs = (new Query())
             ->select('attribute_id')
             ->from(StoreProductTypeToAttribute::tableName())
             ->where('type_id = :tid', [':tid' => $this->id])
-            ->column();
+            ->column();*/
     }
 
     /**
@@ -118,7 +121,9 @@ class StoreProductType extends \backend\components\BackModel
     {
         parent::afterSave($insert, $changedAttributes);
 
-        StoreProductTypeToAttribute::deleteAll('type_id = :tid', [':tid' => $this->id]);
+        $this->saveTypeSizes();
+
+        /*StoreProductTypeToAttribute::deleteAll('type_id = :tid', [':tid' => $this->id]);
 
         if (is_array($this->attrs)) {
             foreach ($this->attrs as $attr) {
@@ -127,9 +132,7 @@ class StoreProductType extends \backend\components\BackModel
                 $model->attribute_id = (int)$attr;
                 $model->save(false);
             }
-        }
-
-
+        }*/
     }
 
     /**
@@ -205,19 +208,27 @@ class StoreProductType extends \backend\components\BackModel
     public function getFormRows()
     {
         return [
-            
-            'label' => [
-                'type' => Form::INPUT_TEXT,
+            'form-set' => [
+                'Основные' => [
+                    'label' => [
+                        'type' => Form::INPUT_TEXT,
+                    ],
+                    /*'attrs' => [
+                        'type' => Form::INPUT_WIDGET,
+                        'widgetClass' => Select2::className(),
+                        'options' => [
+                            'data' => ArrayHelper::map(StoreProductAttribute::find()->orderBy('position DESC')->asArray()->all(), 'id', 'label'),
+                            'options' => ['multiple' => true, 'placeholder' => 'Выберите атрибуты типа']
+                        ]
+                    ]*/
+                ],
+                'Типовые размеры' => [
+                    'typeSizes' => [
+                        'type' => Form::INPUT_RAW,
+                        'value' => CustomMultipleInput::widget(['model' => $this])
+                    ],
+                ],
             ],
-            'attrs' => [
-                'type' => Form::INPUT_WIDGET,
-                'widgetClass' => Select2::className(),
-                'options' => [
-                    'data' => ArrayHelper::map(StoreProductAttribute::find()->orderBy('position DESC')->asArray()->all(), 'id', 'label'),
-                    'options' => ['multiple' => true, 'placeholder' => 'Выберите атрибуты типа']
-                ]
-            ]
-
         ];
     }
 
@@ -226,7 +237,7 @@ class StoreProductType extends \backend\components\BackModel
     */
     public function getColCount()
     {
-        return 2;
+        return 1;
     }
 
     /**
@@ -235,5 +246,45 @@ class StoreProductType extends \backend\components\BackModel
     public function getBreadCrumbRoot()
     {
         return 'Тип продукта';
+    }
+
+    private function loadTypeSizes()
+    {
+        $this->typeSizes = (new Query())
+            ->select(['id', 'label', 'height'])
+            ->from(StoreProductTypeSize::tableName())
+            ->andWhere('product_type_id = :id', [':id' => $this->id])
+            ->all();
+    }
+
+    private function saveTypeSizes()
+    {
+        $sizeIDs = ArrayHelper::getColumn($this->typeSizes, 'id');
+        StoreProductTypeSize::deleteAll(['and', 'product_type_id = :id', ['not in', 'id', $sizeIDs]], [
+            ':id' => $this->id
+        ]);
+        if (is_array($this->typeSizes)) {
+            $data = [];
+            foreach ($this->typeSizes as $size) {
+                if ($size['id'] && $model = StoreProductTypeSize::findOne($size['id'])) {
+                    $model->label = $size['label'];
+                    $model->height = $size['height'];
+                    $model->save();
+                } else {
+                    $data[] = [
+                        'product_type_id' => $this->id,
+                        'label' => $size['label'],
+                        'height' => $size['height']
+                    ];
+                }
+            }
+            if (!empty($data)) {
+                Yii::$app->db->createCommand()->batchInsert(
+                    StoreProductTypeSize::tableName(),
+                    ['product_type_id', 'label', 'height'],
+                    $data
+                )->execute();
+            }
+        }
     }
 }

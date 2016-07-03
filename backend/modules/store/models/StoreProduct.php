@@ -16,6 +16,8 @@ use kartik\select2\Select2;
 use notgosu\yii2\modules\metaTag\components\MetaTagBehavior;
 use omgdef\multilingual\MultilingualBehavior;
 use metalguardian\fileProcessor\helpers\FPM;
+use unclead\widgets\MultipleInput;
+use unclead\widgets\MultipleInputColumn;
 use Yii;
 use kartik\builder\Form;
 use yii\behaviors\TimestampBehavior;
@@ -82,6 +84,11 @@ class StoreProduct extends \backend\components\BackModel
      */
     public $filters = [];
 
+    /**
+     * @var array
+     */
+    public $sizes = [];
+
     public function init()
     {
         parent::init();
@@ -127,12 +134,12 @@ class StoreProduct extends \backend\components\BackModel
     public function rules()
     {
         return [
-            [['category_id', 'label', 'alias'], 'required'],
+            [['category_id', 'label', 'alias', 'type_id'], 'required'],
             ['alias', 'unique'],
             [['type_id', 'status', 'is_top_50', 'is_new', 'is_sale', 'is_popular', 'is_top_50_category', 'category_id', 'visible', 'position', 'show_on_main_page'], 'integer'],
             [['announce', 'content', 'video_id'], 'string'],
             [['price', 'old_price'], 'number'],
-            [['created', 'modified', 'options', 'variants', 'sign', 'multiLangOptions', 'similar', 'filters'], 'safe'],
+            [['created', 'modified', 'options', 'variants', 'sign', 'multiLangOptions', 'similar', 'filters', 'sizes'], 'safe'],
             ['options', 'validateOptions'],
             [['label', 'alias', 'sku'], 'string', 'max' => 255],
             [
@@ -188,6 +195,8 @@ class StoreProduct extends \backend\components\BackModel
     public function afterFind()
     {
         parent::afterFind();
+
+        $this->loadSizes();
         /*$this->loadVariants();
         $this->loadFilters();
         $this->loadSimilar();*/
@@ -199,6 +208,8 @@ class StoreProduct extends \backend\components\BackModel
     public function afterSave($insert, $changedAttributes)
     {
         parent::afterSave($insert, $changedAttributes);
+
+        $this->saveSizes();
         /*$this->saveVariants();
         $this->saveFilters();
         $this->saveSimilarProducts();*/
@@ -745,7 +756,7 @@ class StoreProduct extends \backend\components\BackModel
                 'label',
                 'alias',
                 'sku',
-                [
+                /*[
                     'attribute' => 'price',
                     'headerOptions' => ['class' => 'col-sm-1']
                 ],
@@ -756,7 +767,7 @@ class StoreProduct extends \backend\components\BackModel
                         return \common\models\StoreProduct::getStatus($data->status);
                     }
 
-                ],
+                ],*/
                 [
                     'label' => 'Изображение',
                     'format' => 'raw',
@@ -781,6 +792,16 @@ class StoreProduct extends \backend\components\BackModel
     public static function getAttributesForTypeUrl($params = [])
     {
         return static::createUrl('/store/store-product/get-attributes-for-type', $params);
+    }
+
+    /**
+     * @param array $params
+     *
+     * @return string
+     */
+    public static function getTypeSizesForTypeUrl($params = [])
+    {
+        return static::createUrl('/store/store-product/get-type-sizes-for-type', $params);
     }
 
     /**
@@ -853,7 +874,7 @@ class StoreProduct extends \backend\components\BackModel
                             'class' => 's_alias'
                         ]
                     ],
-                    /*'type_id' => [
+                    'type_id' => [
                         'type' => Form::INPUT_DROPDOWN_LIST,
                         'items' => ArrayHelper::merge(
                             ['' => 'выберите'],
@@ -865,10 +886,15 @@ class StoreProduct extends \backend\components\BackModel
                         ),
                         'options' => [
                             'class' => 'dependent',
-                            'data-url' => static::getAttributesForTypeUrl(),
+                            'data-url' => static::getTypeSizesForTypeUrl(['productId' => $this->id]),
                             'data-name' => 'typeId'
                         ]
-                    ],*/
+                        /*'options' => [
+                            'class' => 'dependent',
+                            'data-url' => static::getAttributesForTypeUrl(),
+                            'data-name' => 'typeId'
+                        ]*/
+                    ],
                     'category_id' => [
                         'type' => Form::INPUT_DROPDOWN_LIST,
                         'items' => static::getCategoriesList(),
@@ -910,21 +936,21 @@ class StoreProduct extends \backend\components\BackModel
                     'sku' => [
                         'type' => Form::INPUT_STATIC,
                     ],
-                    'price' => [
+                    /*'price' => [
                         'type' => Form::INPUT_TEXT,
                         //'hint' => 'цена указана для текущей главной валюты "'.CommCurrency::getDefaultCurrencyCode().'"'
                     ],
                     'old_price' => [
                         'type' => Form::INPUT_TEXT,
                     ],
-                    /*'video_id' => [
+                    'video_id' => [
                         'type' => Form::INPUT_TEXT,
-                    ],*/
+                    ],
                     'status' => [
                         'type' => Form::INPUT_DROPDOWN_LIST,
                         'items' => \common\models\StoreProduct::getStatusList()
                     ],
-                    /*'show_on_main_page' => [
+                    'show_on_main_page' => [
                         'type' => Form::INPUT_CHECKBOX,
                     ],*/
                     'is_new' => [
@@ -1008,10 +1034,122 @@ class StoreProduct extends \backend\components\BackModel
                                 return Html::activeHiddenInput($data, 'sign');
                             }
                     ]
-                ]
+                ],
+                'Размеры' => [
+                    'sizes' => [
+                        'type' => Form::INPUT_RAW,
+                        'value' => MultipleInput::widget([
+                            'model' => $this,
+                            'attribute' => 'sizes',
+                            'allowEmptyList' => true,
+                            'columns' => [
+                                [
+                                    'name'  => 'id',
+                                    'type'  => MultipleInputColumn::TYPE_HIDDEN_INPUT,
+                                ],
+                                [
+                                    'name'  => 'product_type_size_id',
+                                    'type'  => MultipleInputColumn::TYPE_DROPDOWN,
+                                    'title' => 'Типовой размер',
+                                    'items' => $this->getTypeSizeOptions()
+                                ],
+                                [
+                                    'name'  => 'price',
+                                    'type'  => MultipleInputColumn::TYPE_TEXT_INPUT,
+                                    'title' => 'Цена',
+                                ],
+                                [
+                                    'name'  => 'old_price',
+                                    'type'  => MultipleInputColumn::TYPE_TEXT_INPUT,
+                                    'title' => 'Старая цена',
+                                ],
+                                [
+                                    'name'  => 'existence',
+                                    'type'  => MultipleInputColumn::TYPE_CHECKBOX,
+                                    'title' => 'В наличии',
+                                ]
+                            ]
+                        ])
+                    ],
+                ],
             ],
 
         ];
+    }
+
+    /**
+     * @param null|integer $typeId
+     *
+     * @return array
+     */
+    public function getTypeSizeOptions($typeId = null)
+    {
+        if (isset($this->type->id) || $typeId) {
+            $id = $typeId ? $typeId : $this->type->id;
+
+            return (new Query())
+                ->select('label')
+                ->from(StoreProductTypeSize::tableName())
+                ->andWhere(['product_type_id' => $id])
+                ->indexBy('id')
+                ->column();
+        }
+
+        return [];
+    }
+
+    private function loadSizes()
+    {
+        $this->sizes = (new Query())
+            ->select(['id', 'product_type_size_id', 'price', 'old_price', 'existence'])
+            ->from(StoreProductSize::tableName())
+            ->andWhere('product_id = :id', [':id' => $this->id])
+            ->all();
+    }
+
+    private function saveSizes()
+    {
+        $sizeIDs = ArrayHelper::getColumn($this->sizes, 'id');
+        StoreProductSize::deleteAll(['and', 'product_id = :id', ['not in', 'id', $sizeIDs]], [
+            ':id' => $this->id
+        ]);
+        if (is_array($this->sizes)) {
+            $data = [];
+            foreach ($this->sizes as $size) {
+                if ($size['id'] && $model = StoreProductSize::findOne($size['id'])) {
+                    $model->product_type_size_id = $size['product_type_size_id'];
+                    $model->price = $this->normalizePrice($size['price']);
+                    $model->old_price = $this->normalizePrice($size['old_price']);
+                    $model->existence = $size['existence'];
+                    $model->save();
+                } else {
+                    $data[] = [
+                        'product_id' => $this->id,
+                        'product_type_size_id' => $size['product_type_size_id'],
+                        'price' => $this->normalizePrice($size['price']),
+                        'old_price' => $this->normalizePrice($size['old_price']),
+                        'existence' => $size['existence'],
+                    ];
+                }
+            }
+            if (!empty($data)) {
+                Yii::$app->db->createCommand()->batchInsert(
+                    StoreProductSize::tableName(),
+                    ['product_id', 'product_type_size_id', 'price', 'old_price', 'existence'],
+                    $data
+                )->execute();
+            }
+        }
+    }
+
+    /**
+     * @param $price
+     *
+     * @return null
+     */
+    public function normalizePrice($price)
+    {
+        return !$price ? null : $price;
     }
 
     /**

@@ -15,14 +15,14 @@ if (!YII_ENV_TEST) {
     $config['modules']['debug'] = [
         'class' => 'yii\debug\Module',
         'allowedIPs' => [
-            '111.111.111.1'//insert the correct ip
+            '*'//insert the correct ip
         ]
     ];
 
     $config['bootstrap'][] = 'gii';
     $config['modules']['gii'] = [
         'class' => 'yii\gii\Module',
-        'allowedIPs' => ['111.111.111.1'],//insert the correct ip
+        'allowedIPs' => ['*'],//insert the correct ip
         'generators' => [
             'model' => [
                 'class' => 'backend\components\gii\model\Generator',

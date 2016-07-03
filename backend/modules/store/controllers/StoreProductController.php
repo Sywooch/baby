@@ -53,6 +53,31 @@ class StoreProductController extends BackendController
     /**
      * @return array
      */
+    public function actionGetTypeSizesForType()
+    {
+        $typeId = \Yii::$app->request->post('typeId');
+        $productId = \Yii::$app->request->get('productId');
+        if ($productId) {
+            $model = StoreProduct::findOne($productId);
+        } else {
+            $model = new StoreProduct();
+        }
+
+        \Yii::$app->response->format = 'json';
+        return
+            [
+                'content' => [
+                    [
+                        'what' => '.tab_2_content fieldset',
+                        'data' => $this->renderAjax('sizes_for_type', ['typeId' => $typeId, 'model' => $model])
+                    ]
+                ]
+            ];
+    }
+
+    /**
+     * @return array
+     */
     public function actionGetFilterForCategory()
     {
         $categoryId = \Yii::$app->request->post('category_id');

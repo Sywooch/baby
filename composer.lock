@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "b26b38cbe331f58a43602b6cbde9e7b1",
-    "content-hash": "f8b5db5a69759a2b5c5f6b447371476f",
+    "hash": "2a75fbed1d28a70dae8b652db7c3d938",
+    "content-hash": "bf6e90b4680375f799f23f1676058adb",
     "packages": [
         {
             "name": "avator/yii2-turbosms",
@@ -2165,6 +2165,51 @@
                 "yii2"
             ],
             "time": "2016-06-14 06:51:10"
+        },
+        {
+            "name": "unclead/yii2-multiple-input",
+            "version": "1.2.19",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/unclead/yii2-multiple-input.git",
+                "reference": "1e312ec8d071bd331fc4b6cf24d59d8afc988b10"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/unclead/yii2-multiple-input/zipball/1e312ec8d071bd331fc4b6cf24d59d8afc988b10",
+                "reference": "1e312ec8d071bd331fc4b6cf24d59d8afc988b10",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4.0",
+                "yiisoft/yii2": "*"
+            },
+            "type": "yii2-extension",
+            "autoload": {
+                "psr-4": {
+                    "unclead\\widgets\\examples\\": "examples/",
+                    "unclead\\widgets\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Eugene Tupikov",
+                    "email": "unclead.nsk@gmail.com"
+                }
+            ],
+            "description": "Widget for handle multiple inputs for an attribute of Yii2 framework model",
+            "keywords": [
+                "yii2",
+                "yii2 array input",
+                "yii2 multiple field",
+                "yii2 multiple input",
+                "yii2 tabular input"
+            ],
+            "time": "2016-07-01 14:04:51"
         },
         {
             "name": "vova07/yii2-console-runner-extension",
