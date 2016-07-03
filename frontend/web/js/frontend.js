@@ -34,7 +34,7 @@ $(function () {
 		if (quantity) {
 			var addLink = $('.cart-add');
 			if (addLink.length) {
-				var href = addLink.data('url') + '?quantity=' + quantity;
+				var href = addLink.data('url') + '&quantity=' + quantity;
 				addLink.attr('href', href);
 			} else {
 				var url = $(this).data('url') + '?quantity=' + quantity;
@@ -58,6 +58,26 @@ $(function () {
 		calculateOrderSumInTheCart();
 		checkCartButton();
 		addListNumbers();
+	});
+
+	$(document).on("click", ".product-sizes-selectBox-dropdown-menu a", function(e){
+		e.preventDefault();
+		var id = $(this).attr('rel');
+		var option = $('select.product-sizes option[value='+id+']');
+		var price = option.data('price');
+		var oldPrice = option.data('oldprice');
+		$('.price-new').text(price);
+		$('.price-old').text(oldPrice);
+		var addLink = $('.cart-add');
+		if (addLink.length) {
+			var href = addLink.data('url');
+			var p = href.indexOf("?");
+			var num = href.substring(p + "?sizeId=".length);
+			var toReplace = 'sizeId=' + num;
+			var replaceWith = 'sizeId=' + id;
+			href = href.replace(toReplace, replaceWith);
+			addLink.attr('href', href);
+		}
 	});
 
 	//remove product from wish list

@@ -244,10 +244,11 @@ class OrderForm extends Model
         /**
          * @var StoreProductCartPosition $pos
          */
+        $product = $pos->getProduct();
         $orderProduct = new StoreOrderProduct();
         $orderProduct->order_id = $order->id;
-        $orderProduct->product_id = $pos->id;
-        $orderProduct->sku = $pos->variant ? $pos->getVariant()['sku'] : $pos->sku;
+        $orderProduct->product_id = $product->id;
+        $orderProduct->sku = /*$pos->variant ? $pos->getVariant()['sku'] :*/ $product->sku;
         $orderProduct->qnt = $pos->getQuantity();
         $orderProduct->save(false);
 

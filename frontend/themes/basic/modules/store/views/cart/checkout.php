@@ -126,6 +126,7 @@ $totalCost = $cart->getCost() . ' ' . Currency::getDefaultCurrencyCode();
                     <tr>
                         <td class="name"><?= \Yii::t('front', 'Product Name') ?></td>
                         <td class="model"><?= \Yii::t('front', 'Model') ?></td>
+                        <td class="model"><?= \Yii::t('front', 'Size') ?></td>
                         <td class="quantity"><?= \Yii::t('front', 'Quantity') ?></td>
                         <td class="price"><?= \Yii::t('front', 'Price') ?></td>
                         <td class="total"><?= \Yii::t('front', 'Total') ?></td>
@@ -133,14 +134,17 @@ $totalCost = $cart->getCost() . ' ' . Currency::getDefaultCurrencyCode();
                     </thead>
                     <tbody>
                     <?php /** @var StoreProductCartPosition $item */
-                    foreach ($positions as $item): ?>
+                    foreach ($positions as $item):
+                        $product = $item->getProduct();
+                        ?>
                         <tr>
                             <td class="name">
-                                <a href="<?= StoreProduct::getProductUrl(['alias' => $item->alias]) ?>">
-                                    <?= $item->label ?>
+                                <a href="<?= StoreProduct::getProductUrl(['alias' => $product->alias]) ?>">
+                                    <?= $product->label ?>
                                 </a>
                             </td>
-                            <td class="model"><?= $item->sku ?></td>
+                            <td class="model"><?= $product->sku ?></td>
+                            <td class="model"><?= $item->getSize()->typeSize->getLabel() ?></td>
                             <td class="quantity"><?= $item->getQuantity() ?></td>
                             <td class="price"><?= $item->getPrice() ?> <?= Currency::getDefaultCurrencyCode() ?></td>
                             <td class="total"><?= $item->getCost() ?> <?= Currency::getDefaultCurrencyCode() ?></td>

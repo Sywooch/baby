@@ -4,6 +4,7 @@ namespace backend\modules\store\models;
 
 use backend\components\AutoIncrementBehavior;
 use backend\modules\store\components\EAVBehavior;
+use backend\modules\store\components\ProductSizesMultipleInput;
 use backend\modules\store\widgets\imagesUpload\ImageUpload;
 use backend\widgets\cloneableInput\CloneableInput;
 use common\models\Currency as CommCurrency;
@@ -945,12 +946,12 @@ class StoreProduct extends \backend\components\BackModel
                     ],
                     'video_id' => [
                         'type' => Form::INPUT_TEXT,
-                    ],
+                    ],*/
                     'status' => [
                         'type' => Form::INPUT_DROPDOWN_LIST,
                         'items' => \common\models\StoreProduct::getStatusList()
                     ],
-                    'show_on_main_page' => [
+                    /*'show_on_main_page' => [
                         'type' => Form::INPUT_CHECKBOX,
                     ],*/
                     'is_new' => [
@@ -1038,38 +1039,7 @@ class StoreProduct extends \backend\components\BackModel
                 'Размеры' => [
                     'sizes' => [
                         'type' => Form::INPUT_RAW,
-                        'value' => MultipleInput::widget([
-                            'model' => $this,
-                            'attribute' => 'sizes',
-                            'allowEmptyList' => true,
-                            'columns' => [
-                                [
-                                    'name'  => 'id',
-                                    'type'  => MultipleInputColumn::TYPE_HIDDEN_INPUT,
-                                ],
-                                [
-                                    'name'  => 'product_type_size_id',
-                                    'type'  => MultipleInputColumn::TYPE_DROPDOWN,
-                                    'title' => 'Типовой размер',
-                                    'items' => $this->getTypeSizeOptions()
-                                ],
-                                [
-                                    'name'  => 'price',
-                                    'type'  => MultipleInputColumn::TYPE_TEXT_INPUT,
-                                    'title' => 'Цена',
-                                ],
-                                [
-                                    'name'  => 'old_price',
-                                    'type'  => MultipleInputColumn::TYPE_TEXT_INPUT,
-                                    'title' => 'Старая цена',
-                                ],
-                                [
-                                    'name'  => 'existence',
-                                    'type'  => MultipleInputColumn::TYPE_CHECKBOX,
-                                    'title' => 'В наличии',
-                                ]
-                            ]
-                        ])
+                        'value' => ProductSizesMultipleInput::widget(['model' => $this])
                     ],
                 ],
             ],

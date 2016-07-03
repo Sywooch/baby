@@ -27,16 +27,18 @@ $totalCost = $cart->getCost() . ' ' . Currency::getDefaultCurrencyCode();
             <table>
                 <tbody>
                 <?php /** @var StoreProductCartPosition $item */
-                foreach ($positions as $item): ?>
-                    <?php $productUrl = StoreProduct::getProductUrl(['alias' => $item->alias]) ?>
+                foreach ($positions as $item): 
+                    $product = $item->getProduct();
+                    ?>
+                    <?php $productUrl = StoreProduct::getProductUrl(['alias' => $product->alias]) ?>
                     <tr>
                         <td class="image">
                             <a href="<?= $productUrl ?>">
-                                <?= FPM::image($item->mainImage->file_id, 'product', 'mainPagePreview') ?>
+                                <?= FPM::image($product->mainImage->file_id, 'product', 'mainPagePreview') ?>
                             </a>
                         </td>
                         <td class="name">
-                            <a href="<?= $productUrl ?>"><?= $item->label ?></a>
+                            <a href="<?= $productUrl ?>"><?= $product->label ?></a>
                             <div> </div>
                         </td>
                         <td class="quantity">x&nbsp;<?= $item->getQuantity() ?></td>

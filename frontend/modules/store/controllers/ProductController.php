@@ -44,11 +44,7 @@ class ProductController extends FrontController
         $product = StoreProduct::find()
             ->where('visible = 1')
             ->andWhere(StoreProduct::tableName().'.alias = :alias', [':alias' => $alias])
-            ->joinWith(
-                [
-                    'allImages',
-                ]
-            )
+            ->joinWith(['allImages', 'productSizes'])
             ->one();
 
         if (!$product) {

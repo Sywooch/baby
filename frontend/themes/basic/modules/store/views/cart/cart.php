@@ -25,6 +25,7 @@ $totalCost = $cart->getCost() . ' ' . Currency::getDefaultCurrencyCode();
                 <td class="image"><?= \Yii::t('front', 'Image') ?></td>
                 <td class="name"><?= \Yii::t('front', 'Product Name') ?></td>
                 <td class="model"><?= \Yii::t('front', 'Model') ?></td>
+                <td class="model"><?= \Yii::t('front', 'Size') ?></td>
                 <td class="quantity"><?= \Yii::t('front', 'Quantity') ?></td>
                 <td class="price"><?= \Yii::t('front', 'Unit Price') ?></td>
                 <td class="total"><?= \Yii::t('front', 'Total') ?></td>
@@ -32,22 +33,25 @@ $totalCost = $cart->getCost() . ' ' . Currency::getDefaultCurrencyCode();
             </thead>
             <tbody>
             <?php /** @var StoreProductCartPosition $item */
-            foreach ($positions as $item): ?>
-                <?php $productUrl = StoreProduct::getProductUrl(['alias' => $item->alias]) ?>
+            foreach ($positions as $item):
+                $product = $item->getProduct();
+                ?>
+                <?php $productUrl = StoreProduct::getProductUrl(['alias' => $product->alias]) ?>
                 <tr>
                     <td class="image">
                         <a href="<?= $productUrl ?>">
-                            <?= FPM::image($item->mainImage->file_id, 'product', 'mainPreview', [
+                            <?= FPM::image($product->mainImage->file_id, 'product', 'mainPreview', [
                                 'width' => 130,
                                 'height' => 130
                             ]) ?>
                         </a>
                     </td>
                     <td class="name">
-                        <a href="<?= $productUrl ?>"><?= $item->label ?></a>
+                        <a href="<?= $productUrl ?>"><?= $product->label ?></a>
                         <div> </div>
                     </td>
-                    <td class="model"><?= $item->sku ?></td>
+                    <td class="model"><?= $product->sku ?></td>
+                    <td class="model"><?= $item->getSize()->typeSize->getLabel() ?></td>
                     <td class="quantity">
                         <input class="cart-quantity" data-url="<?= StoreProductCartPosition::getCartUpdateUrl(['id' => $item->id]) ?>" type="text" name="quantity" value="<?= $item->getQuantity() ?>" size="1">
                     </td>

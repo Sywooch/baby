@@ -7,12 +7,13 @@ namespace app\modules\store\controllers;
 
 use app\models\Payment;
 use app\modules\store\forms\OrderForm;
+use app\modules\store\models\StoreProduct;
 use app\modules\store\models\StoreProductCartPosition;
 use common\models\StoreOrder;
-use common\models\StoreProduct;
 use frontend\components\UnusedParamsFilter;
 use frontend\controllers\FrontController;
 use frontend\modules\common\models\PageSeo;
+use frontend\modules\store\models\StoreProductSize;
 use frontend\widgets\headerCart\Widget;
 use Imagine\Exception\InvalidArgumentException;
 use yii\base\Exception;
@@ -44,7 +45,7 @@ class CartController extends FrontController
                 'class' => UnusedParamsFilter::className(),
                 'actions' => [
                     //action => ['param', 'param2']
-                    'add' => ['sku', 'id', 'type', 'quantity'],
+                    'add' => ['sku', 'id', 'sizeId', 'type', 'quantity'],
                     'remove' => ['sku', 'id', 'all', 'type'],
                     'update' => ['id', 'quantity'],
                     'show-cart' => ['orderCreateRequest'],
@@ -72,27 +73,27 @@ class CartController extends FrontController
 
     /**
      * @param $id
+     * @param $sizeId
      * @param string $type
      *
      * @return string
      */
     public function actionAdd($id, $type = 'product')
     {
+        $sizeId = \Yii::$app->request->get('sizeId');
         if ($type == 'product') {
-            $product = StoreProductCartPosition::find()
-                ->where(['visible' => 1])
-                ->andWhere(['status' => StoreProduct::STATUS_AVAILABLE])
-                ->andWhere('id = :id', [':id' => $id])
-                ->one();
+            $productPosition = new StoreProductCartPosition($id, $sizeId);
+            if (\Yii::$app->cart->hasPosition($productPosition->getId())) {
+
+                $productPosition = \Yii::$app->cart->getPositionById($productPosition->getId());
+            }
         } else {
             throw new InvalidArgumentException;
         }
 
-        if ($product) {
-            $quantity = \Yii::$app->request->get('quantity');
-            $quantity = $quantity > 1 ? (int)$quantity : 1;
-            \Yii::$app->cart->put($product, $quantity);
-        }
+        $quantity = \Yii::$app->request->get('quantity');
+        $quantity = $quantity > 1 ? (int)$quantity : 1;
+        \Yii::$app->cart->put($productPosition, $quantity);
 
         return $this->renderCart(true);
     }
@@ -106,20 +107,11 @@ class CartController extends FrontController
      */
     public function actionUpdate($id)
     {
-        $product = StoreProductCartPosition::find()
-            ->where(['visible' => 1])
-            ->andWhere(['status' => StoreProduct::STATUS_AVAILABLE])
-            ->andWhere('id = :id', [':id' => $id])
-            ->one();
-
-        if ($product) {
-            $position = \Yii::$app->cart->getPositionById($product->getId());
-            if ($position) {
-
-                $quantity = \Yii::$app->request->get('quantity');
-                $quantity = $quantity > 1 ? (int)$quantity : 1;
-                \Yii::$app->cart->update($product, $quantity);
-            }
+        $productPosition = \Yii::$app->cart->getPositionById($id);
+        if ($productPosition) {
+            $quantity = \Yii::$app->request->get('quantity');
+            $quantity = $quantity > 1 ? (int)$quantity : 1;
+            \Yii::$app->cart->update($productPosition, $quantity);
         }
 
         return $this->renderCart(true);
@@ -136,25 +128,13 @@ class CartController extends FrontController
         $type = \Yii::$app->request->get('type');
 
         if (!$type || $type == 'product') {
-            $product = StoreProductCartPosition::find()
-                ->where(['visible' => 1])
-                ->andWhere(['status' => StoreProduct::STATUS_AVAILABLE])
-                ->andWhere('id = :id', [':id' => $id])
-                ->one();
+            $productPosition = \Yii::$app->cart->getPositionById($id);\common\helpers\Dump::dump($productPosition);
+            if ($productPosition) {
+                \Yii::$app->cart->update($productPosition, $all ? 0 : ($productPosition->getQuantity()-1));
+            }
         } else {
             throw new InvalidArgumentException;
         }
-
-
-
-        if ($product) {
-            $position = \Yii::$app->cart->getPositionById($product->getId());
-
-            if ($position) {
-                \Yii::$app->cart->update($position, $all ? 0 : ($position->getQuantity()-1));
-            }
-        }
-
 
         return $this->renderCart();
     }

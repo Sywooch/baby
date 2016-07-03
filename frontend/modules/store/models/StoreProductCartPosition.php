@@ -6,54 +6,105 @@ use common\models\Currency;
 use common\models\EntityToFile;
 use common\models\Language;
 use frontend\components\FrontModel;
+use frontend\modules\store\models\StoreProductSize;
 use Yii;
+use yii\base\Model;
 use yii\db\Query;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
+use yii\helpers\Url;
+use yii\web\HttpException;
 use yz\shoppingcart\CartPositionInterface;
 use yz\shoppingcart\CartPositionTrait;
 
+
 /**
- * This is the model class for table "{{%store_product}}".
+ * Class StoreProductCartPosition
  *
- * @property integer $id
- * @property integer $type_id
- * @property integer $category_id
- * @property string $label
- * @property string $alias
- * @property string $announce
- * @property string $content
- * @property string $sku
- * @property string $price
- * @property integer $visible
- * @property integer $position
- * @property string $video_id
- * @property string $created
- * @property string $modified
- *
+ * @package app\modules\store\models
  */
-class StoreProductCartPosition extends FrontModel implements CartPositionInterface
+class StoreProductCartPosition extends Model implements CartPositionInterface
 {
     use CartPositionTrait;
 
     public $variant;
 
     /**
-     * @inheritdoc
+     * @var StoreProductSize
      */
-    public function getId()
+    public $sizeId;
+
+    /**
+     * @var StoreProduct
+     */
+    public $productId;
+    
+    /** @inheritdoc */
+    public function __construct($productId, $sizeId)
     {
-        return md5(serialize([$this->id, $this->variant]));
+        parent::__construct();
+        
+        $this->productId = $productId;
+        $this->sizeId = $sizeId;
     }
 
     /**
      * @inheritdoc
      */
+    public function getId()
+    {
+        return md5(serialize([$this->productId, $this->sizeId]));
+    }
+
     public function getPrice()
     {
-        $variant = $this->getVariant();
-        $price = $variant ? $variant['price'] : $this->price;
+        $price = (new Query())
+            ->select(['t.price'])
+            ->from(['t' => StoreProductSize::tableName()])
+            ->where('t2.id = :PID AND t.id = :SID', [':PID' => $this->productId, ':SID' => $this->sizeId])
+            ->join(
+                'INNER JOIN',
+                ['t2' => StoreProduct::tableName()],
+                't.product_id = t2.id'
+            )
+            ->scalar();
 
-        return Currency::getPriceInCurrency($price);
+        return $price;
+    }
+
+    /**
+     * @return array|null|StoreProduct
+     * @throws HttpException
+     */
+    public function getProduct()
+    {
+        $product = StoreProduct::find()
+            ->from(['t' => StoreProduct::tableName()])
+            ->where(['t.visible' => 1])
+            ->andWhere(['t.status' => \common\models\StoreProduct::STATUS_AVAILABLE])
+            ->andWhere('t.id = :id', [':id' => $this->productId])
+            ->one();
+
+        if (!$product) {
+            throw new HttpException(500, 'Товар не найден');
+        }
+
+        return $product;
+    }
+
+    /**
+     * @return null|StoreProductSize
+     * @throws HttpException
+     */
+    public function getSize()
+    {
+        $size = StoreProductSize::findOne(['id' => $this->sizeId, 'product_id' => $this->productId]);
+
+        if (!$size) {
+            throw new HttpException(500, 'Размер не найден');
+        }
+
+        return $size;
     }
 
     /**
@@ -61,7 +112,7 @@ class StoreProductCartPosition extends FrontModel implements CartPositionInterfa
      */
     public function getLabel()
     {
-        $label = $this->label;
+        $label = $this->getProduct()->label;
 
         $currentLang = Language::getCurrent();
         if ($currentLang->code != Language::getDefaultLang()->code) {
@@ -99,20 +150,17 @@ class StoreProductCartPosition extends FrontModel implements CartPositionInterfa
     /**
      * @inheritdoc
      */
-    public static function tableName()
+    /*public static function tableName()
     {
         return '{{%store_product}}';
-    }
+    }*/
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return EntityToFile
      */
     public function getMainImage()
     {
-        return $this->hasOne(EntityToFile::className(), ['entity_model_id' => 'id'])
-            ->where('entity_model_name = :emn', [':emn' => 'StoreProduct'])
-            ->joinWith('file')
-            ->orderBy('position DESC');
+        return $this->getProduct()->mainImage;
     }
 
     /**
@@ -266,5 +314,19 @@ class StoreProductCartPosition extends FrontModel implements CartPositionInterfa
                 ]
             );
         }
+    }
+
+    /**
+     * @param $route
+     * @param $params
+     *
+     * @return string
+     */
+    public static function createUrl($route, $params)
+    {
+        return Url::to(ArrayHelper::merge(
+            [$route],
+            $params
+        ));
     }
 }

@@ -6,8 +6,10 @@ use common\models\Currency;
 use common\models\EntityToFile;
 use common\models\Language;
 use common\models\StoreProductAttribute;
+use common\models\StoreProductType;
 use frontend\components\FrontModel;
 use frontend\modules\store\forms\StoreProductSubscribeForm;
+use frontend\modules\store\models\StoreProductSize;
 use himiklab\sitemap\behaviors\SitemapBehavior;
 use metalguardian\fileProcessor\helpers\FPM;
 use omgdef\multilingual\MultilingualBehavior;
@@ -45,6 +47,7 @@ use yii\db\Query;
  * @property StoreProductVariant[] $storeProductVariants
  * @property EntityToFile $mainImage
  * @property EntityToFile[] $allImages
+ * @property StoreProductSize[] $productSizes
  */
 class StoreProduct extends FrontModel
 {
@@ -176,6 +179,14 @@ class StoreProduct extends FrontModel
             ->where('entity_model_name = :emn', [':emn' => 'StoreProduct'])
             ->joinWith('file')
             ->orderBy('position DESC');
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getProductSizes()
+    {
+        return $this->hasMany(StoreProductSize::className(), ['product_id' => 'id']);
     }
 
     /**
@@ -358,7 +369,7 @@ class StoreProduct extends FrontModel
     }
 
     /**
-     * @return float
+     * @return string
      */
     public function getPrice()
     {
@@ -370,7 +381,45 @@ class StoreProduct extends FrontModel
      */
     public function getOldPrice()
     {
-        return Currency::getPriceInCurrency($this->old_price);
+        return Currency::getPriceInCurrency($this->getMinOldPrice());
+    }
+
+    /**
+     * @return bool|string
+     */
+    public function getMinPrice()
+    {
+        return (new Query())
+            ->select(['MIN(price)'])
+            ->from([StoreProductSize::tableName()])
+            ->where(['product_id' => $this->id])
+            ->groupBy(['product_id'])
+            ->scalar();
+    }
+
+    /**
+     * @return bool|string
+     */
+    public function getMinOldPrice()
+    {
+        return (new Query())
+            ->select(['MIN(old_price)'])
+            ->from([StoreProductSize::tableName()])
+            ->where(['product_id' => $this->id])
+            ->groupBy(['product_id'])
+            ->scalar();
+    }
+
+    /**
+     * @return string
+     */
+    public function getMinPriceWithCurrency()
+    {
+        $minPrice = $this->getMinPrice();
+        if (!$minPrice) {
+            return Yii::t('front', 'Clarify');
+        }
+        return Currency::getPriceInCurrency($this->getMinPrice()) . ' ' . Currency::getDefaultCurrencyCode();
     }
 
     /**

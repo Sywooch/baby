@@ -47,6 +47,7 @@ use yii\helpers\Url;
         <tr>
             <td class="left"><?= \Yii::t('front', 'Product Name') ?></td>
             <td class="left"><?= \Yii::t('front', 'Model') ?></td>
+            <td class="left"><?= \Yii::t('front', 'Size') ?></td>
             <td class="right"><?= \Yii::t('front', 'Quantity') ?></td>
             <td class="right"><?= \Yii::t('front', 'Price') ?></td>
             <td class="right"><?= \Yii::t('front', 'Total') ?></td>
@@ -57,6 +58,7 @@ use yii\helpers\Url;
             <tr>
                 <td class="left"><?= $orderProduct->product->label ?></td>
                 <td class="left"><?= $orderProduct->sku ?></td>
+                <td class="left"><?= $orderProduct->size->typeSize->getLabel() ?></td>
                 <td class="right"><?= $orderProduct->qnt ?></td>
                 <td class="right"><?= $orderProduct->product->price ?> <?= Currency::getDefaultCurrencyCode() ?></td>
                 <td class="right"><?= $orderProduct->product->price * $orderProduct->qnt ?> <?= Currency::getDefaultCurrencyCode() ?></td>

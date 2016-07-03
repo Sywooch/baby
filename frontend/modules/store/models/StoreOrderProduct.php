@@ -4,6 +4,7 @@ namespace app\modules\store\models;
 
 use app\modules\certificate\models\Certificate;
 use frontend\components\FrontModel;
+use frontend\modules\store\models\StoreProductSize;
 use Yii;
 
 /**
@@ -12,12 +13,14 @@ use Yii;
  * @property integer $id
  * @property integer $order_id
  * @property integer $product_id
+ * @property integer $size_id
  * @property integer $cert_id
  * @property integer $qnt
  * @property string $sku
  *
  * @property StoreOrder $order
  * @property StoreProduct $product
+ * @property StoreProductSize $size
  */
 class StoreOrderProduct extends FrontModel
 {
@@ -68,6 +71,14 @@ class StoreOrderProduct extends FrontModel
     public function getProduct()
     {
         return $this->hasOne(StoreProduct::className(), ['id' => 'product_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getSize()
+    {
+        return $this->hasOne(StoreProductSize::className(), ['id' => 'size_id']);
     }
 
     /**
