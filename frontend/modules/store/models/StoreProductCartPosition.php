@@ -56,9 +56,12 @@ class StoreProductCartPosition extends Model implements CartPositionInterface
         return md5(serialize([$this->productId, $this->sizeId]));
     }
 
+    /**
+     * @return bool|string
+     */
     public function getPrice()
     {
-        $price = (new Query())
+        return (new Query())
             ->select(['t.price'])
             ->from(['t' => StoreProductSize::tableName()])
             ->where('t2.id = :PID AND t.id = :SID', [':PID' => $this->productId, ':SID' => $this->sizeId])
@@ -68,8 +71,6 @@ class StoreProductCartPosition extends Model implements CartPositionInterface
                 't.product_id = t2.id'
             )
             ->scalar();
-
-        return $price;
     }
 
     /**

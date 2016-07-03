@@ -28,11 +28,13 @@ use metalguardian\fileProcessor\helpers\FPM;
                         <a href="<?= $url ?>" title=""><?= $product->label ?></a>
                     </h3>
                     <?= $this->render('//layouts/_wrap_price', ['product' => $product]) ?>
-                    <p class="submit">
-                        <a class="ajax-popup-link" href="<?= StoreProductCartPosition::getCartAddUrl(['id' => $product->id]) ?>">
-                            <input type="button" value="<?= Yii::t('front', 'Add to Cart') ?>" class="button">
-                        </a>
-                    </p>
+                    <?php if ($product->getMinPrice()) { ?>
+                        <p class="submit">
+                            <a class="ajax-popup-link" href="<?= StoreProductCartPosition::getCartAddUrl(['id' => $product->id, 'sizeId' => $product->productSizes[0]->id]) ?>">
+                                <input type="button" value="<?= Yii::t('front', 'Add to Cart') ?>" class="button">
+                            </a>
+                        </p>
+                    <?php } ?>
                 </div>
             <?php endforeach; ?>
         </div>

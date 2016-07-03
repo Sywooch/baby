@@ -21,7 +21,7 @@ class Widget extends \yii\base\Widget
      */
     public function run()
     {
-        $sizes = $this->model->productSizes;
+        $sizes = $this->model->getProductSizes()->andWhere(['existence' => 1])->all();
         if (empty($sizes)) {
             return false;
         }

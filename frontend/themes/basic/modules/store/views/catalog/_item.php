@@ -25,11 +25,13 @@ $url = StoreProduct::getProductUrl(['alias' => $model->alias]) ?>
         <h3 class="name"><a href="<?= $url ?>" title=""><?= $model->label ?></a></h3>
         <?= $this->render('//layouts/_wrap_price', ['product' => $model]) ?>
         <p class="description"><?= $model->announce ?></p>
-        <p class="submit">
-            <?php $url = StoreProductCartPosition::getCartAddUrl(['id' => $model->id]) ?>
-            <a class="ajax-popup-link" href="<?= $url ?>" data-url="<?= $url ?>">
-                <input type="button" value="<?= \Yii::t('front', 'Add to Cart') ?>" class="button">
-            </a>
-        </p>
+        <?php if ($model->getMinPrice()) { ?>
+            <p class="submit">
+                <?php $url = StoreProductCartPosition::getCartAddUrl(['id' => $model->id, 'sizeId' => $model->productSizes[0]->id]) ?>
+                <a class="ajax-popup-link" href="<?= $url ?>" data-url="<?= $url ?>">
+                    <input type="button" value="<?= \Yii::t('front', 'Add to Cart') ?>" class="button">
+                </a>
+            </p>
+        <?php } ?>
     </div>
 </div>

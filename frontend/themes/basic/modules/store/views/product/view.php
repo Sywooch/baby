@@ -63,18 +63,20 @@ use yii\helpers\Url;
         <div class="desc2">
             <span><?= \Yii::t('front', 'Product Code:') ?></span> <?= $model->sku ?><br>
             <span><?= \Yii::t('front', 'Availability:') ?></span> <?= \common\models\StoreProduct::getStatus($model->status) ?></div>
-        <div class="cart">
-            <?= \app\modules\store\widgets\productSizes\Widget::widget(['model' => $model]) ?>
-            <br>
-            <div><?= \Yii::t('front', 'Qty:') ?>
-                <input class="cart-quantity" type="text" name="quantity" size="2" value="1">
-                &nbsp;
-                <?php $url = StoreProductCartPosition::getCartAddUrl(['id' => $model->id, 'sizeId' => $model->productSizes[0]->id]) ?>
-                <a class="cart-add ajax-popup-link" href="<?= $url ?>" data-url="<?= $url ?>">
-                    <input type="button" value="<?= \Yii::t('front', 'Add to Cart') ?>" id="button-cart" class="button">
-                </a>
+        <?php if ($model->getMinPrice()) { ?>
+            <div class="cart">
+                <?= \app\modules\store\widgets\productSizes\Widget::widget(['model' => $model]) ?>
+                <br>
+                <div><?= \Yii::t('front', 'Qty:') ?>
+                    <input class="cart-quantity" type="text" name="quantity" size="2" value="1">
+                    &nbsp;
+                    <?php $url = StoreProductCartPosition::getCartAddUrl(['id' => $model->id, 'sizeId' => $model->productSizes[0]->id]) ?>
+                    <a class="cart-add ajax-popup-link" href="<?= $url ?>" data-url="<?= $url ?>">
+                        <input type="button" value="<?= \Yii::t('front', 'Add to Cart') ?>" id="button-cart" class="button">
+                    </a>
+                </div>
             </div>
-        </div>
+        <?php } ?>
     </div>
 </div>
 <div id="tabs" class="htabs"><a href="#tab-description"><?= \Yii::t('front', 'Description') ?></a></div>

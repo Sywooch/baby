@@ -84,7 +84,6 @@ class CartController extends FrontController
         if ($type == 'product') {
             $productPosition = new StoreProductCartPosition($id, $sizeId);
             if (\Yii::$app->cart->hasPosition($productPosition->getId())) {
-
                 $productPosition = \Yii::$app->cart->getPositionById($productPosition->getId());
             }
         } else {
@@ -128,7 +127,7 @@ class CartController extends FrontController
         $type = \Yii::$app->request->get('type');
 
         if (!$type || $type == 'product') {
-            $productPosition = \Yii::$app->cart->getPositionById($id);\common\helpers\Dump::dump($productPosition);
+            $productPosition = \Yii::$app->cart->getPositionById($id);
             if ($productPosition) {
                 \Yii::$app->cart->update($productPosition, $all ? 0 : ($productPosition->getQuantity()-1));
             }
